@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  View,
-} from "react-native";
-import { Text, useTheme } from "react-native-paper";
 
-import PostListItem from "./PostListItem/PostListItem";
+import EmptyListStatus from "./EmptyListStatus/EmptyListStatus";
+import ErrorStatus from "./ErrorStatus/ErrorStatus";
+import LoadingStatus from "./LoadingStatus/LoadingStatus";
+import RenderedFlatList from "./RenderedFlatList/RenderedFlatList";
 import Post from "../../../../interfaces/Post";
 
 interface PostListProps {
@@ -16,8 +12,6 @@ interface PostListProps {
 }
 
 const PostList = ({ route, navigation }: PostListProps) => {
-  const theme = useTheme();
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,6 +27,7 @@ const PostList = ({ route, navigation }: PostListProps) => {
     setLoading(true);
 
     const response = await fetch(
+      // TODO: change to backend URL and use auth
       `http://192.168.0.18:8000/posts?page=${page}`,
       {
         method: "GET",
@@ -73,79 +68,22 @@ const PostList = ({ route, navigation }: PostListProps) => {
   }, []);
 
   if (loading && currentPage === 0) {
-    return (
-      <View
-        style={{
-          padding: 30,
-        }}
-      >
-        <ActivityIndicator
-          animating={loading}
-          size={48}
-          color={theme.colors.secondary}
-        />
-      </View>
-    );
+    return <LoadingStatus loading={loading} />;
   } else if (isError) {
-    return (
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
-        <Text
-          style={{
-            padding: 30,
-            minHeight: "100%",
-            color: theme.colors.error,
-            textAlign: "center",
-          }}
-          variant="titleLarge"
-        >
-          Problem z wczytaniem danych.
-        </Text>
-      </RefreshControl>
-    );
+    return <ErrorStatus refreshing={refreshing} onRefresh={onRefresh} />;
   } else if (posts.length === 0) {
-    return (
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
-        <Text
-          style={{
-            padding: 30,
-            minHeight: "100%",
-            textAlign: "center",
-          }}
-          variant="titleLarge"
-        >
-          Nie znaleziono żadnego postu.
-        </Text>
-      </RefreshControl>
-    );
+    return <EmptyListStatus refreshing={refreshing} onRefresh={onRefresh} />;
   } else {
     return (
-      <FlatList
-        data={posts}
-        renderItem={({ item }) => (
-          <PostListItem post={item} route={route} navigation={navigation} />
-        )}
-        keyExtractor={(post: Post) => post.id}
-        contentContainerStyle={{
-          flexGrow: 1,
-          overflow: "visible",
-          minHeight: "100%",
-          padding: 30,
-          paddingBottom: 120,
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        onEndReached={fetchNextPage}
-        onEndReachedThreshold={0.8}
-        ListFooterComponent={
-          !isLastPage ? (
-            <ActivityIndicator
-              animating={loading}
-              size={48}
-              color={theme.colors.secondary}
-            />
-          ) : null
-        }
+      <RenderedFlatList
+        route={route}
+        navigation={navigation}
+        posts={posts}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+        fetchNextPage={fetchNextPage}
+        isLastPage={isLastPage}
+        loading={loading}
       />
     );
   }

@@ -2,15 +2,19 @@ import { Image } from "expo-image";
 import { Animated, Pressable, View } from "react-native";
 import { Surface, Text } from "react-native-paper";
 
-import Post from "../../../../../interfaces/Post";
+import Post from "../../../../../../interfaces/Post";
 
-interface PostListItemProps {
+interface RenderedFlatListItemProps {
   route: any;
   navigation: any;
   post: Post;
 }
 
-const PostListItem = ({ route, navigation, post }: PostListItemProps) => {
+const RenderedFlatListItem = ({
+  route,
+  navigation,
+  post,
+}: RenderedFlatListItemProps) => {
   const animatedOpacity = new Animated.Value(1);
 
   const fadeIn = () => {
@@ -71,4 +75,4 @@ const PostListItem = ({ route, navigation, post }: PostListItemProps) => {
   );
 };
 
-export default PostListItem;
+export default RenderedFlatListItem;
