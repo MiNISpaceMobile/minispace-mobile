@@ -10,19 +10,19 @@ const MainNavigation = () => {
   const [routes] = useState([
     {
       key: "posts",
-      title: "Posts",
+      title: "Posty",
       focusedIcon: "home",
       unfocusedIcon: "home-outline",
     },
     {
       key: "events",
-      title: "Events",
+      title: "Wydarzenia",
       focusedIcon: "calendar-month",
       unfocusedIcon: "calendar-month-outline",
     },
     {
       key: "account",
-      title: "Account",
+      title: "Profil",
       focusedIcon: "account-circle",
       unfocusedIcon: "account-circle-outline",
     },
