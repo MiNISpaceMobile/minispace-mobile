@@ -1,7 +1,6 @@
 import { render, screen, within } from "@testing-library/react-native";
 import "@testing-library/jest-native/";
 import React from "react";
-import renderer from "react-test-renderer";
 
 import RenderedFlatListItem from "../RenderedFlatListItem";
 
