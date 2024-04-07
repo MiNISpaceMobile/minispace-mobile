@@ -62,12 +62,19 @@ const RenderedFlatListItem = ({
               borderRadius: 10,
               height: 150,
             }}
+            testID="image"
           />
           <View style={{ padding: 5 }}>
-            <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+            <Text
+              variant="titleLarge"
+              style={{ fontWeight: "bold" }}
+              testID="title"
+            >
               {post.title}
             </Text>
-            <Text variant="titleMedium">{post.content}</Text>
+            <Text variant="titleMedium" testID="content">
+              {post.content}
+            </Text>
           </View>
         </Animated.View>
       </Surface>
