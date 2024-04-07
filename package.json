@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint .",
-    "test": "jest --coverage=false"
+    "test": "jest --coverage=false",
+    "coverage": "jest --coverage=true"
   },
   "dependencies": {
     "@react-navigation/stack": "^6.3.29",
