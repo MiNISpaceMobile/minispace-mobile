@@ -56,6 +56,9 @@ const RenderedFlatList = ({
             animating={loading}
             size={48}
             color={theme.colors.secondary}
+            style={{
+              paddingBottom: 30,
+            }}
           />
         ) : null
       }
