@@ -26,24 +26,28 @@ const PostList = ({ route, navigation }: PostListProps) => {
 
     setLoading(true);
 
-    const response = await fetch(
-      // TODO: change to backend URL and use auth
-      `http://192.168.0.18:8000/posts?page=${page}`,
-      {
-        method: "GET",
-      },
-    );
+    try {
+      const response = await fetch(
+        // TODO: change to backend URL and use auth
+        `http://192.168.0.18:8000/posts?page=${page}`,
+        {
+          method: "GET",
+        },
+      );
 
-    if (response.ok) {
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      if (data.length === 0) {
-        setIsLastPage(true);
+        if (data.length === 0) {
+          setIsLastPage(true);
+        }
+
+        setPosts((oldPosts) => (page === 0 ? data : oldPosts.concat(data)));
+        setIsError(false);
+      } else {
+        throw new TypeError("Network request failed");
       }
-
-      setPosts((oldPosts) => (page === 0 ? data : oldPosts.concat(data)));
-      setIsError(false);
-    } else {
+    } catch {
       setCurrentPage(0);
       setIsError(true);
     }

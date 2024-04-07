@@ -1,4 +1,4 @@
-import { RefreshControl } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { Text } from "react-native-paper";
 
 interface EmptyListStatusProps {
@@ -8,18 +8,20 @@ interface EmptyListStatusProps {
 
 const EmptyListStatus = ({ refreshing, onRefresh }: EmptyListStatusProps) => {
   return (
-    <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
-      <Text
-        style={{
-          padding: 30,
-          minHeight: "100%",
-          textAlign: "center",
-        }}
-        variant="titleLarge"
-      >
-        Nie znaleziono żadnego postu.
-      </Text>
-    </RefreshControl>
+    <View testID="emptylist-status">
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
+        <Text
+          style={{
+            padding: 30,
+            minHeight: "100%",
+            textAlign: "center",
+          }}
+          variant="titleLarge"
+        >
+          Nie znaleziono żadnego postu.
+        </Text>
+      </RefreshControl>
+    </View>
   );
 };
 

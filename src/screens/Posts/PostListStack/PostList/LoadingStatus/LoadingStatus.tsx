@@ -18,6 +18,7 @@ const LoadingStatus = ({ loading }: LoadingStatusProps) => {
         animating={loading}
         size={48}
         color={theme.colors.secondary}
+        testID="loading-status"
       />
     </View>
   );

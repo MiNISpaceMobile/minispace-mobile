@@ -18,7 +18,7 @@ const Posts = () => {
         <Stack.Screen
           name="PostList"
           children={(props) => (
-            <SafeAreaView>
+            <SafeAreaView testID="post-list">
               <PostListStack {...props} />
             </SafeAreaView>
           )}
