@@ -3,8 +3,6 @@ import { create } from "zustand";
 
 import Post from "../interfaces/Post";
 
-const BASE_URL = "http://192.168.0.18:8000";
-
 interface PostsState {
   posts: Post[];
   error: null | string;
@@ -31,10 +29,12 @@ export const usePostsStore = create<PostsState>((set, get) => ({
 
     set({ loading: true });
 
-    axios
-      .get(BASE_URL + "/posts", {
-        params: { page: get().page },
-      })
+    axios({
+      url: "/posts",
+      method: "get",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      params: { page: get().page },
+    })
       .then((response) => {
         set((state) => ({
           posts: state.posts.concat(response.data.posts),
