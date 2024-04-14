@@ -5,19 +5,23 @@ import { BottomNavigation, Icon, useTheme } from "react-native-paper";
 import Account from "../../screens/Account/Account";
 import Events from "../../screens/Events/Events";
 import Posts from "../../screens/Posts/Posts";
+import { useNavigationStore } from "../../zustand/navigation";
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigation = () => {
+  const display = useNavigationStore((state) => state.display);
+
   return (
     <NavigationContainer theme={useTheme()}>
       <Tab.Navigator
-        initialRouteName="events"
+        initialRouteName="posts"
         screenOptions={{
           headerShown: false,
         }}
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
+            style={{ display }}
             navigationState={state}
             safeAreaInsets={insets}
             onTabPress={({ route, preventDefault }) => {
@@ -61,7 +65,7 @@ const MainNavigation = () => {
       >
         <Tab.Screen
           name="posts"
-          children={(props) => <Posts {...props} />}
+          component={Posts}
           options={{
             tabBarLabel: "Posty",
             tabBarIcon: ({ focused, color, size }) => {
