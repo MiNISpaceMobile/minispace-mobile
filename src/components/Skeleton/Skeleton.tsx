@@ -4,7 +4,7 @@ import { DimensionValue } from "react-native";
 import { useTheme } from "react-native-paper";
 
 interface SkeletonProps {
-  children: ReactChild | null | undefined;
+  children?: ReactChild | null | undefined;
   loading: boolean;
   height?: DimensionValue;
   width?: DimensionValue;
