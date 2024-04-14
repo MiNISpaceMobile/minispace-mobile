@@ -3,19 +3,14 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 
 import Skeleton from "../../../../../components/Skeleton/Skeleton";
-import PostDetails from "../../../../../interfaces/PostDetails";
+import { usePostDetailsStore } from "../../../../../zustand/post-details";
 
-interface PostDetailsDescriptionProps {
-  postDetails: null | PostDetails;
-  loading: boolean;
-}
-
-const PostDetailsDescription = ({
-  postDetails,
-  loading,
-}: PostDetailsDescriptionProps) => {
+const PostDetailsDescription = () => {
   const [title, setTitle] = useState<null | string>(null);
   const [content, setContent] = useState<null | string>(null);
+
+  const postDetails = usePostDetailsStore((state) => state.postDetails);
+  const loading = usePostDetailsStore((state) => state.loading);
 
   useEffect(() => {
     if (postDetails !== null) {

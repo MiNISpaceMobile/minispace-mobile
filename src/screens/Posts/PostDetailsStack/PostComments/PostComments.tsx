@@ -10,15 +10,14 @@ import { useCommentsStore } from "../../../../zustand/comments";
 
 interface PostCommentsProps {
   route: any;
-  navigation: any;
-  loading: boolean;
 }
 
-const PostComments = ({ route, navigation, loading }: PostCommentsProps) => {
+const PostComments = ({ route }: PostCommentsProps) => {
   const { post } = route.params as { post: Post };
 
   const comments = useCommentsStore((state) => state.comments);
   const error = useCommentsStore((state) => state.error);
+  const loading = useCommentsStore((state) => state.loading);
   const fetchComments = useCommentsStore((state) => state.fetchComments);
 
   useEffect(() => {
@@ -30,14 +29,14 @@ const PostComments = ({ route, navigation, loading }: PostCommentsProps) => {
       <Text variant="titleMedium">Komentarze:</Text>
       {error ? (
         <ErrorStatus />
-      ) : loading ? (
-        <Skeleton loading={loading} height={100} width="100%" />
       ) : (
-        <View>
-          {comments.map((comment) => (
-            <PostCommentsItem comment={comment} key={comment.id} />
-          ))}
-        </View>
+        <Skeleton loading={loading} height={100} width="100%">
+          <View>
+            {comments.map((comment) => (
+              <PostCommentsItem comment={comment} key={comment.id} />
+            ))}
+          </View>
+        </Skeleton>
       )}
     </View>
   );

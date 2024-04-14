@@ -6,22 +6,17 @@ import PostDetailsDescription from "./PostDetailsDescription/PostDetailsDescript
 import PostDetailsImage from "./PostDetailsImage/PostDetailsImage";
 import PostDetailsParticipants from "./PostDetailsParticipants/PostDetailsParticipants";
 import PostDetailsReactions from "./PostDetailsReactions/PostDetailsReactions";
-import PostDetails from "../../../../interfaces/PostDetails";
+import { usePostDetailsStore } from "../../../../zustand/post-details";
 
 interface PostSpecificsProps {
   route: any;
   navigation: any;
-  postDetails: PostDetails | null;
-  loading: boolean;
 }
 
-const PostSpecifics = ({
-  route,
-  navigation,
-  postDetails,
-  loading,
-}: PostSpecificsProps) => {
+const PostSpecifics = ({ route, navigation }: PostSpecificsProps) => {
   const [imageURI, setImageURI] = useState("");
+
+  const postDetails = usePostDetailsStore((state) => state.postDetails);
 
   useEffect(() => {
     if (postDetails !== null) {
@@ -36,15 +31,11 @@ const PostSpecifics = ({
         navigation={navigation}
         imageURI={imageURI}
       />
-      <View
-        style={{
-          padding: 10,
-        }}
-      >
+      <View style={{ padding: 10 }}>
         <PostDetailsActions />
-        <PostDetailsParticipants loading={loading} />
-        <PostDetailsDescription postDetails={postDetails} loading={loading} />
-        <PostDetailsReactions loading={loading} />
+        <PostDetailsParticipants />
+        <PostDetailsDescription />
+        <PostDetailsReactions />
       </View>
     </View>
   );

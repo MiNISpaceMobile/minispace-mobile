@@ -3,15 +3,13 @@ import { View } from "react-native";
 import { useTheme, Text } from "react-native-paper";
 
 import Skeleton from "../../../../components/Skeleton/Skeleton";
-import PostDetails from "../../../../interfaces/PostDetails";
+import { usePostDetailsStore } from "../../../../zustand/post-details";
 
-interface HeaderProps {
-  postDetails: null | PostDetails;
-  loading: boolean;
-}
-
-const Header = ({ postDetails, loading }: HeaderProps) => {
+const Header = () => {
   const theme = useTheme();
+
+  const postDetails = usePostDetailsStore((state) => state.postDetails);
+  const loading = usePostDetailsStore((state) => state.loading);
 
   const [title, setTitle] = useState<null | string>(null);
 

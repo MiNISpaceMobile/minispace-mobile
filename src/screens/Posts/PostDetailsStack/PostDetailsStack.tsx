@@ -19,9 +19,7 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
 
   const [errorDialogVisible, setErrorDialogVisible] = useState(false);
 
-  const postDetails = usePostDetailsStore((state) => state.postDetails);
   const error = usePostDetailsStore((state) => state.error);
-  const loading = usePostDetailsStore((state) => state.loading);
   const fetchPostDetails = usePostDetailsStore(
     (state) => state.fetchPostDetails,
   );
@@ -70,14 +68,9 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
           </Dialog.Actions>
         </Dialog>
       </Portal>
-      <Header postDetails={postDetails} loading={loading} />
-      <PostSpecifics
-        postDetails={postDetails}
-        loading={loading}
-        route={route}
-        navigation={navigation}
-      />
-      <PostComments route={route} navigation={navigation} loading={loading} />
+      <Header />
+      <PostSpecifics route={route} navigation={navigation} />
+      <PostComments route={route} />
     </ScrollView>
   );
 };

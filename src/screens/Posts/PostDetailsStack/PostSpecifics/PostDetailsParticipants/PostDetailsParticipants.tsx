@@ -2,13 +2,12 @@ import { View } from "react-native";
 import { Chip } from "react-native-paper";
 
 import Skeleton from "../../../../../components/Skeleton/Skeleton";
-
-interface PostDetailsParticipantsProps {
-  loading: boolean;
-}
+import { usePostDetailsStore } from "../../../../../zustand/post-details";
 
 // TODO: fetch data and implement participants list
-const PostDetailsParticipants = ({ loading }: PostDetailsParticipantsProps) => {
+const PostDetailsParticipants = () => {
+  const loading = usePostDetailsStore((state) => state.loading);
+
   return (
     <View style={{ marginBottom: 10 }}>
       <Skeleton loading={loading} height={32}>

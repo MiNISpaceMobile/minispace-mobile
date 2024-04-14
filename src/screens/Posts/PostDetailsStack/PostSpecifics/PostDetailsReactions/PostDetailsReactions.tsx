@@ -4,6 +4,7 @@ import { Text } from "react-native-paper";
 
 import PostDetailsReactionsButton from "./PostDetailsReactionsButton/PostDetailsReactionsButton";
 import Skeleton from "../../../../../components/Skeleton/Skeleton";
+import { usePostDetailsStore } from "../../../../../zustand/post-details";
 
 export type ReactionType =
   | null
@@ -12,12 +13,10 @@ export type ReactionType =
   | "emoticon-lol"
   | "emoticon-cry";
 
-interface PostDetailsReactionsProps {
-  loading: boolean;
-}
-
-const PostDetailsReactions = ({ loading }: PostDetailsReactionsProps) => {
+const PostDetailsReactions = () => {
   const [selectedReaction, setSelectedReaction] = useState<ReactionType>(null);
+
+  const loading = usePostDetailsStore((state) => state.loading);
 
   const setSelectedReactionHandler = (newSelectedReaction: ReactionType) => {
     setSelectedReaction(newSelectedReaction);
