@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
@@ -7,42 +7,37 @@ import PostDetailsDescription from "./PostDetailsDescription/PostDetailsDescript
 import PostDetailsImage from "./PostDetailsImage/PostDetailsImage";
 import PostDetailsParticipants from "./PostDetailsParticipants/PostDetailsParticipants";
 import PostDetailsReactions from "./PostDetailsReactions/PostDetailsReactions";
-import Post from "../../../../interfaces/Post";
-import { usePostDetailsStore } from "../../../../zustand/post-details";
+import PostDetails from "../../../../interfaces/PostDetails";
 
-interface PostDetailsProps {
+interface PostSpecificsProps {
   route: any;
   navigation: any;
+  postDetails: PostDetails | null;
+  loading: boolean;
+  error: string | null;
 }
 
-const PostDetails = ({ route, navigation }: PostDetailsProps) => {
-  const { post } = route.params as { post: Post };
-
-  const postDetails = usePostDetailsStore((state) => state.postDetails);
-  const error = usePostDetailsStore((state) => state.error);
-  const loading = usePostDetailsStore((state) => state.loading);
-  const fetchPostDetails = usePostDetailsStore(
-    (state) => state.fetchPostDetails,
-  );
+const PostSpecifics = ({
+  route,
+  navigation,
+  postDetails,
+  loading,
+  error,
+}: PostSpecificsProps) => {
+  const [imageURI, setImageURI] = useState("");
 
   useEffect(() => {
-    fetchPostDetails(post.id);
-  }, []);
+    if (postDetails !== null) {
+      setImageURI(postDetails.imageURI);
+    }
+  }, [postDetails]);
 
-  return loading ? (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  ) : error || postDetails === null ? (
-    <View>
-      <Text>Error</Text>
-    </View>
-  ) : (
+  return (
     <View>
       <PostDetailsImage
         route={route}
         navigation={navigation}
-        imageURI={postDetails.imageURI}
+        imageURI={imageURI}
       />
       <View
         style={{
@@ -51,14 +46,14 @@ const PostDetails = ({ route, navigation }: PostDetailsProps) => {
       >
         <PostDetailsActions />
         <PostDetailsParticipants />
-        <PostDetailsDescription
+        {/* <PostDetailsDescription
           title={postDetails.title}
           content={postDetails.content}
-        />
+        /> */}
         <PostDetailsReactions />
       </View>
     </View>
   );
 };
 
-export default PostDetails;
+export default PostSpecifics;

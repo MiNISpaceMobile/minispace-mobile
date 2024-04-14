@@ -1,14 +1,25 @@
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useTheme, Text } from "react-native-paper";
+
+import PostDetails from "../../../../interfaces/PostDetails";
 
 interface HeaderProps {
   route: any;
   navigation: any;
-  title: string;
+  postDetails: null | PostDetails;
 }
 
-const Header = ({ route, navigation, title }: HeaderProps) => {
+const Header = ({ route, navigation, postDetails }: HeaderProps) => {
   const theme = useTheme();
+
+  const [title, setTitle] = useState<null | string>(null);
+
+  useEffect(() => {
+    if (postDetails !== null) {
+      setTitle(postDetails.eventTitle);
+    }
+  }, [postDetails]);
 
   return (
     <View
