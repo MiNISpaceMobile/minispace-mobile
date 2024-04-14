@@ -1,45 +1,114 @@
-import { useState } from "react";
-import { BottomNavigation } from "react-native-paper";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer, CommonActions } from "@react-navigation/native";
+import { BottomNavigation, Icon, useTheme } from "react-native-paper";
 
 import Account from "../../screens/Account/Account";
 import Events from "../../screens/Events/Events";
 import Posts from "../../screens/Posts/Posts";
 
+const Tab = createBottomTabNavigator();
+
 const MainNavigation = () => {
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {
-      key: "posts",
-      title: "Posty",
-      focusedIcon: "home",
-      unfocusedIcon: "home-outline",
-    },
-    {
-      key: "events",
-      title: "Wydarzenia",
-      focusedIcon: "calendar-month",
-      unfocusedIcon: "calendar-month-outline",
-    },
-    {
-      key: "account",
-      title: "Profil",
-      focusedIcon: "account-circle",
-      unfocusedIcon: "account-circle-outline",
-    },
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    posts: Posts,
-    events: Events,
-    account: Account,
-  });
-
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-    />
+    <NavigationContainer theme={useTheme()}>
+      <Tab.Navigator
+        initialRouteName="events"
+        screenOptions={{
+          headerShown: false,
+        }}
+        tabBar={({ navigation, state, descriptors, insets }) => (
+          <BottomNavigation.Bar
+            navigationState={state}
+            safeAreaInsets={insets}
+            onTabPress={({ route, preventDefault }) => {
+              const event = navigation.emit({
+                type: "tabPress",
+                target: route.key,
+                canPreventDefault: true,
+              });
+
+              if (event.defaultPrevented) {
+                preventDefault();
+              } else {
+                navigation.dispatch({
+                  ...CommonActions.navigate(route.name, route.params),
+                  target: state.key,
+                });
+              }
+            }}
+            renderIcon={({ route, focused, color }) => {
+              const { options } = descriptors[route.key];
+              if (options.tabBarIcon) {
+                return options.tabBarIcon({ focused, color, size: 24 });
+              }
+
+              return null;
+            }}
+            getLabelText={({ route }) => {
+              const { options } = descriptors[route.key];
+              const label =
+                options.tabBarLabel !== undefined
+                  ? options.tabBarLabel
+                  : options.title !== undefined
+                    ? options.title
+                    : // @ts-ignore: code from documentation https://callstack.github.io/react-native-paper/docs/components/BottomNavigation/BottomNavigationBar#usage
+                      route.title;
+
+              return label;
+            }}
+          />
+        )}
+      >
+        <Tab.Screen
+          name="posts"
+          children={(props) => <Posts {...props} />}
+          options={{
+            tabBarLabel: "Posty",
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  source={"home" + (focused ? "" : "-outline")}
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="events"
+          component={Events}
+          options={{
+            tabBarLabel: "Wydarzenia",
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  source={"calendar-month" + (focused ? "" : "-outline")}
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="profile"
+          component={Account}
+          options={{
+            tabBarLabel: "Profil",
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  source={"account-circle" + (focused ? "" : "-outline")}
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
