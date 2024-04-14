@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
+import { Avatar } from "react-native-paper";
 
 import Header from "./Header/Header";
 import PostComments from "./PostComments/PostComments";
@@ -27,15 +28,15 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
   }, [navigation]);
 
   return (
-    <View>
+    <ScrollView>
       <Header
         route={route}
         navigation={navigation}
         title="Varsonalia PW 2024"
       />
       <PostDetails route={route} navigation={navigation} />
-      <PostComments />
-    </View>
+      <PostComments route={route} navigation={navigation} />
+    </ScrollView>
   );
 };
 
