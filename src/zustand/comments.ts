@@ -15,7 +15,7 @@ export const useCommentsStore = create<CommentsState>((set, get) => ({
   error: null,
   loading: false,
   fetchComments: async (id: string) => {
-    set({ loading: true });
+    set({ loading: true, comments: [] });
 
     axios({
       url: `/comments/${id}`,

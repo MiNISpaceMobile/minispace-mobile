@@ -15,7 +15,7 @@ export const usePostDetailsStore = create<PostDetailsState>((set, get) => ({
   error: null,
   loading: false,
   fetchPostDetails: async (id: string) => {
-    set({ loading: true });
+    set({ loading: true, postDetails: null });
 
     axios({
       url: `/posts/${id}`,
