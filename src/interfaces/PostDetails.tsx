@@ -3,4 +3,5 @@ export default interface PostDetails {
   title: string;
   content: string;
   imageURI: string;
+  eventTitle: string;
 }
