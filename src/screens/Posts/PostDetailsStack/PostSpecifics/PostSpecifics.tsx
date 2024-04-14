@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
 
 import PostDetailsActions from "./PostDetailsActions/PostDetailsActions";
 import PostDetailsDescription from "./PostDetailsDescription/PostDetailsDescription";
@@ -14,7 +13,6 @@ interface PostSpecificsProps {
   navigation: any;
   postDetails: PostDetails | null;
   loading: boolean;
-  error: string | null;
 }
 
 const PostSpecifics = ({
@@ -22,7 +20,6 @@ const PostSpecifics = ({
   navigation,
   postDetails,
   loading,
-  error,
 }: PostSpecificsProps) => {
   const [imageURI, setImageURI] = useState("");
 
@@ -45,12 +42,9 @@ const PostSpecifics = ({
         }}
       >
         <PostDetailsActions />
-        <PostDetailsParticipants />
-        {/* <PostDetailsDescription
-          title={postDetails.title}
-          content={postDetails.content}
-        /> */}
-        <PostDetailsReactions />
+        <PostDetailsParticipants loading={loading} />
+        <PostDetailsDescription postDetails={postDetails} loading={loading} />
+        <PostDetailsReactions loading={loading} />
       </View>
     </View>
   );

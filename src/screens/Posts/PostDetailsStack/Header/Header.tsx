@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useTheme, Text } from "react-native-paper";
 
+import Skeleton from "../../../../components/Skeleton/Skeleton";
 import PostDetails from "../../../../interfaces/PostDetails";
 
 interface HeaderProps {
-  route: any;
-  navigation: any;
   postDetails: null | PostDetails;
+  loading: boolean;
 }
 
-const Header = ({ route, navigation, postDetails }: HeaderProps) => {
+const Header = ({ postDetails, loading }: HeaderProps) => {
   const theme = useTheme();
 
   const [title, setTitle] = useState<null | string>(null);
@@ -30,15 +30,14 @@ const Header = ({ route, navigation, postDetails }: HeaderProps) => {
         alignItems: "center",
       }}
     >
-      <Text
-        variant="headlineLarge"
-        style={{
-          color: theme.colors.onPrimary,
-          fontWeight: "bold",
-        }}
-      >
-        {title}
-      </Text>
+      <Skeleton loading={loading} height={40} width="80%">
+        <Text
+          variant="headlineLarge"
+          style={{ color: theme.colors.onPrimary, fontWeight: "bold" }}
+        >
+          {title}
+        </Text>
+      </Skeleton>
     </View>
   );
 };

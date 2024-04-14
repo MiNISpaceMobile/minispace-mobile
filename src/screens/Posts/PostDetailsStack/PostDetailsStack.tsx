@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
+import { Button, Dialog, Portal, Text } from "react-native-paper";
 
 import Header from "./Header/Header";
 import PostComments from "./PostComments/PostComments";
@@ -16,6 +17,8 @@ interface PostDetailsStackProps {
 const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
   const { post } = route.params as { post: Post };
 
+  const [errorDialogVisible, setErrorDialogVisible] = useState(false);
+
   const postDetails = usePostDetailsStore((state) => state.postDetails);
   const error = usePostDetailsStore((state) => state.error);
   const loading = usePostDetailsStore((state) => state.loading);
@@ -26,6 +29,10 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
   useEffect(() => {
     fetchPostDetails(post.id);
   }, []);
+
+  useEffect(() => {
+    setErrorDialogVisible(error !== null);
+  }, [error]);
 
   const setDisplay = useNavigationStore((state) => state.setDisplay);
 
@@ -41,17 +48,36 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
     });
   }, [navigation]);
 
+  const goBack = () => {
+    setErrorDialogVisible(false);
+    navigation.navigate("PostList");
+  };
+
   return (
     <ScrollView>
-      <Header route={route} navigation={navigation} postDetails={postDetails} />
+      <Portal>
+        <Dialog visible={errorDialogVisible} dismissable={false}>
+          <Dialog.Title>Błąd podczas ładowania</Dialog.Title>
+          <Dialog.Content>
+            <Text variant="bodyMedium">
+              Podczas wczytywania nastąpił błąd. Wróć do listy postów i spróbuj
+              ponownie. Jeżeli błąd nadal będzie występował skontaktuj się z
+              administratorem.
+            </Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={goBack}>Wróć</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+      <Header postDetails={postDetails} loading={loading} />
       <PostSpecifics
         postDetails={postDetails}
         loading={loading}
-        error={error}
         route={route}
         navigation={navigation}
       />
-      <PostComments route={route} navigation={navigation} />
+      <PostComments route={route} navigation={navigation} loading={loading} />
     </ScrollView>
   );
 };
