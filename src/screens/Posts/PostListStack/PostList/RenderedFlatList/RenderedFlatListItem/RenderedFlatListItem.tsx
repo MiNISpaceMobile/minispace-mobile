@@ -20,7 +20,7 @@ const RenderedFlatListItem = ({
   const fadeIn = () => {
     Animated.timing(animatedOpacity, {
       toValue: 0.4,
-      duration: 150,
+      duration: 500,
       useNativeDriver: true,
     }).start();
   };
