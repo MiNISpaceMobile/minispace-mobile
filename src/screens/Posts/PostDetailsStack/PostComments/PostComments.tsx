@@ -30,14 +30,14 @@ const PostComments = ({ route, navigation, loading }: PostCommentsProps) => {
       <Text variant="titleMedium">Komentarze:</Text>
       {error ? (
         <ErrorStatus />
+      ) : loading ? (
+        <Skeleton loading={loading} height={100} width="100%" />
       ) : (
-        <Skeleton loading={loading} height={100}>
-          <View>
-            {comments.map((comment) => (
-              <PostCommentsItem comment={comment} key={comment.id} />
-            ))}
-          </View>
-        </Skeleton>
+        <View>
+          {comments.map((comment) => (
+            <PostCommentsItem comment={comment} key={comment.id} />
+          ))}
+        </View>
       )}
     </View>
   );
