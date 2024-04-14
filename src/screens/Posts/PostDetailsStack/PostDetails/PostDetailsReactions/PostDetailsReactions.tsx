@@ -46,12 +46,7 @@ const PostDetailsReactions = () => {
         selectedReaction={selectedReaction}
         setSelectedReactionHandler={setSelectedReactionHandler}
       />
-      <Text
-        variant="titleMedium"
-        style={{
-          padding: 10,
-        }}
-      >
+      <Text variant="titleMedium" style={{ padding: 10 }}>
         45
       </Text>
     </View>
