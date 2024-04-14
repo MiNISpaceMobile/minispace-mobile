@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
 
-import Post from "../../../interfaces/Post";
-import { usePostDetailsStore } from "../../../zustand/post-details";
+import Header from "./Header/Header";
+import PostComments from "./PostComments/PostComments";
+import PostDetails from "./PostDetails/PostDetails";
+import { useNavigationStore } from "../../../zustand/navigation";
 
 interface PostDetailsStackProps {
   route: any;
@@ -11,31 +12,29 @@ interface PostDetailsStackProps {
 }
 
 const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
-  const { post } = route.params as { post: Post };
-
-  const postDetails = usePostDetailsStore((state) => state.postDetails);
-  const error = usePostDetailsStore((state) => state.error);
-  const loading = usePostDetailsStore((state) => state.loading);
-  const fetchPostDetails = usePostDetailsStore(
-    (state) => state.fetchPostDetails,
-  );
+  const setDisplay = useNavigationStore((state) => state.setDisplay);
 
   useEffect(() => {
-    fetchPostDetails(post.id);
-  }, []);
+    setDisplay("none");
 
-  return loading ? (
+    // https://stackoverflow.com/a/64789273
+    const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
+      e.preventDefault();
+      unsubscribe();
+      setDisplay("flex");
+      navigation.navigate("PostList");
+    });
+  }, [navigation]);
+
+  return (
     <View>
-      <Text>Loading...</Text>
-    </View>
-  ) : error || postDetails === null ? (
-    <View>
-      <Text>Error</Text>
-    </View>
-  ) : (
-    <View>
-      <Text>{postDetails.title}</Text>
-      <Text>{postDetails.content}</Text>
+      <Header
+        route={route}
+        navigation={navigation}
+        title="Varsonalia PW 2024"
+      />
+      <PostDetails route={route} navigation={navigation} />
+      <PostComments />
     </View>
   );
 };
