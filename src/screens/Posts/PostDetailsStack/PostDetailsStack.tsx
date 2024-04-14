@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { ScrollView, View } from "react-native";
-import { Avatar } from "react-native-paper";
+import { ScrollView } from "react-native";
 
 import Header from "./Header/Header";
 import PostComments from "./PostComments/PostComments";

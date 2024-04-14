@@ -1,5 +1,4 @@
 import { IconButton } from "react-native-paper";
-import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
 import { ReactionType } from "../PostDetailsReactions";
 
