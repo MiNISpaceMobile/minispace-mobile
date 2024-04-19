@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
 
+import FilterList from "./FilterList/FilterList";
+import Header from "./Header/Header";
+import Search from "./Search/Search";
 import { useNavigationStore } from "../../../zustand/navigation";
 
 interface FilterStackProps {
@@ -25,8 +27,10 @@ const FilterStack = ({ route, navigation }: FilterStackProps) => {
   }, [navigation]);
 
   return (
-    <View>
-      <Text>Filter</Text>
+    <View style={{ flexDirection: "column", height: "100%" }}>
+      <Header />
+      <FilterList />
+      <Search route={route} navigation={navigation} />
     </View>
   );
 };
