@@ -21,11 +21,14 @@ const EventAttributesCheckbox = () => {
       />
       <Checkbox.Item
         label="w których biorą udział moi znajomi"
-        status={filters.hasToBeRegisteredForEvent ? "checked" : "unchecked"}
+        status={
+          filters.hasToHaveFriendRegisteredForEvent ? "checked" : "unchecked"
+        }
         onPress={() => {
           setFilters({
             ...filters,
-            hasToBeRegisteredForEvent: !filters.hasToBeRegisteredForEvent,
+            hasToHaveFriendRegisteredForEvent:
+              !filters.hasToHaveFriendRegisteredForEvent,
           });
         }}
       />
