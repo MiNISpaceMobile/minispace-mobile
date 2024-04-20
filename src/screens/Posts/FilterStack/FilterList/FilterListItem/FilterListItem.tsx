@@ -13,12 +13,12 @@ const FilterListItem = ({
     <Surface
       elevation={1}
       style={{
-        padding: 10,
+        padding: 15,
         margin: 10,
         borderRadius: 10,
       }}
     >
-      <Text variant="headlineSmall" style={{ marginBottom: 10 }}>
+      <Text variant="titleLarge" style={{ marginBottom: 10 }}>
         {label}
       </Text>
       {children}
