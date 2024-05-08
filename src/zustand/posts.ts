@@ -1,7 +1,9 @@
 import axios from "axios";
 import { create } from "zustand";
 
+import { usePostFiltersStore } from "./post-filters";
 import Post from "../interfaces/Post";
+import PostFilters from "../interfaces/PostFilters";
 
 interface PostsState {
   posts: Post[];
@@ -10,7 +12,7 @@ interface PostsState {
   page: number;
   isLastPage: boolean;
   refresh: () => void;
-  fetchPosts: () => void;
+  fetchPosts: (filters: PostFilters) => void;
 }
 
 export const usePostsStore = create<PostsState>((set, get) => ({
@@ -22,7 +24,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
   refresh: () => {
     set({ posts: [], page: 0, isLastPage: false });
   },
-  fetchPosts: async () => {
+  fetchPosts: async (filters: PostFilters) => {
     if (get().isLastPage) {
       return;
     }
@@ -33,6 +35,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
       url: "/posts",
       method: "get",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
+      // TODO: pass filters to params
       params: { page: get().page },
     })
       .then((response) => {

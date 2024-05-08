@@ -4,6 +4,7 @@ import EmptyListStatus from "./EmptyListStatus/EmptyListStatus";
 import ErrorStatus from "./ErrorStatus/ErrorStatus";
 import LoadingStatus from "./LoadingStatus/LoadingStatus";
 import RenderedFlatList from "./RenderedFlatList/RenderedFlatList";
+import { usePostFiltersStore } from "../../../../zustand/post-filters";
 import { usePostsStore } from "../../../../zustand/posts";
 
 interface PostListProps {
@@ -19,14 +20,15 @@ const PostList = ({ route, navigation }: PostListProps) => {
   const isLastPage = usePostsStore((state) => state.isLastPage);
   const refresh = usePostsStore((state) => state.refresh);
   const fetchPosts = usePostsStore((state) => state.fetchPosts);
+  const filters = usePostFiltersStore((state) => state.filters);
 
   const onRefresh = () => {
     refresh();
-    fetchPosts();
+    fetchPosts(filters);
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(filters);
   }, []);
 
   if (loading && page === 0) {
