@@ -18,9 +18,12 @@ const PostCommentsItemHeader = ({ comment }: PostCommentsItemHeaderProps) => {
         marginBottom: 10,
       }}
     >
-      <Avatar.Text size={32} label={comment.username.slice(0, 2).trim()} />
+      <Avatar.Text
+        size={32}
+        label={comment.owner.username.slice(0, 2).trim()}
+      />
       <Text variant="titleSmall" style={{ margin: 10 }}>
-        {comment.username}
+        {comment.owner.username}
       </Text>
       <Text>{moment(new Date(comment.createdAt)).locale("pl").fromNow()}</Text>
     </View>

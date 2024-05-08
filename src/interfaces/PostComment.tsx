@@ -1,7 +1,8 @@
+import User from "./User";
+
 export default interface PostComment {
   id: string;
-  username: string;
-  userProfilePicture: string;
+  owner: User;
   content: string;
   createdAt: number;
   likes: number;
