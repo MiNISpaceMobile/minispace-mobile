@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
 
+import PostDetailsReportDialog from "./PostDetailsReportDialog/PostDetailsReportDialog";
+
 // TODO: implement action buttons
 const PostDetailsActions = () => {
+  const [reportDialogVisible, setReportDialogVisible] = useState(false);
+
+  const setReportDialogVisibleHandler = (newReportDialogVisible: boolean) => {
+    setReportDialogVisible(newReportDialogVisible);
+  };
+
   return (
     <View
       style={{
@@ -16,7 +25,7 @@ const PostDetailsActions = () => {
         icon="flag-variant"
         mode="contained"
         style={{ margin: 10 }}
-        onPress={() => {}}
+        onPress={() => setReportDialogVisible(true)}
       >
         Zgłoś
       </Button>
@@ -36,6 +45,10 @@ const PostDetailsActions = () => {
       >
         Dołącz
       </Button>
+      <PostDetailsReportDialog
+        reportDialogVisible={reportDialogVisible}
+        setReportDialogVisibleHandler={setReportDialogVisibleHandler}
+      />
     </View>
   );
 };
