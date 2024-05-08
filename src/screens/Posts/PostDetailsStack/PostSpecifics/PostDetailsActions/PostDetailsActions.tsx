@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button } from "react-native-paper";
 
 import PostDetailsReportDialog from "./PostDetailsReportDialog/PostDetailsReportDialog";
+import { usePostDetailsStore } from "../../../../../zustand/post-details";
 
 // TODO: implement action buttons
 const PostDetailsActions = () => {
@@ -11,6 +12,9 @@ const PostDetailsActions = () => {
   const setReportDialogVisibleHandler = (newReportDialogVisible: boolean) => {
     setReportDialogVisible(newReportDialogVisible);
   };
+
+  const loading = usePostDetailsStore((state) => state.loading);
+  const postDetails = usePostDetailsStore((state) => state.postDetails);
 
   return (
     <View
@@ -26,6 +30,7 @@ const PostDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => setReportDialogVisible(true)}
+        disabled={loading}
       >
         Zgłoś
       </Button>
@@ -34,6 +39,7 @@ const PostDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => {}}
+        disabled={loading || postDetails === null || !postDetails.subscribed}
       >
         Opuść
       </Button>
@@ -42,6 +48,7 @@ const PostDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => {}}
+        disabled={loading || postDetails === null || postDetails?.subscribed}
       >
         Dołącz
       </Button>
