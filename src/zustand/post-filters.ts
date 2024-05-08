@@ -12,7 +12,7 @@ const defaultFilters: PostFilters = {
   eventTitle: null,
   organizer: null,
   cost: ["free", "paid"],
-  participants: "0+",
+  participants: ["0-50", "50-100", "100+"],
   hasToBeRegisteredForEvent: true,
   hasToHaveFriendRegisteredForEvent: true,
   timeframe: ["current", "future"],
