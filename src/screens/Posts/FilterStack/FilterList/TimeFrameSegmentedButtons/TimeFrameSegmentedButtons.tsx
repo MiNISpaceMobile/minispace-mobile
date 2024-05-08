@@ -9,16 +9,16 @@ const TimeFrameSegmentedButtons = () => {
   const setFilters = usePostFiltersStore((state) => state.setFilters);
 
   return (
-    <FilterListItem label="Czas">
+    <FilterListItem label="Termin wydwarzenia">
       <SegmentedButtons
         value={filters.timeframe}
         onValueChange={(value: string[]) => {
           setFilters({ ...filters, timeframe: value as TimeFrameType[] });
         }}
         buttons={[
-          { value: "past", label: "minione" },
-          { value: "current", label: "obecne" },
-          { value: "future", label: "przyszłe" },
+          { value: "past", label: "minione", style: { flex: 1 } },
+          { value: "current", label: "trwające", style: { flex: 1 } },
+          { value: "future", label: "zaplanowane", style: { flex: 2 } },
         ]}
         multiSelect
       />
