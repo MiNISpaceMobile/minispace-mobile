@@ -9,15 +9,15 @@ const CostSegmentedButtons = () => {
   const setFilters = usePostFiltersStore((state) => state.setFilters);
 
   return (
-    <FilterListItem label="Koszt">
+    <FilterListItem label="Cena wydarzenia">
       <SegmentedButtons
         value={filters.cost}
         onValueChange={(value: string[]) => {
           setFilters({ ...filters, cost: value as CostType[] });
         }}
         buttons={[
-          { value: "free", label: "darmowy" },
-          { value: "paid", label: "płatny" },
+          { value: "free", label: "darmowe" },
+          { value: "paid", label: "płatne" },
         ]}
         multiSelect
       />
