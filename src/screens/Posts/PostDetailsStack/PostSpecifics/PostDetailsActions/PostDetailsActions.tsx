@@ -2,16 +2,12 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
 
-import PostDetailsReportDialog from "./PostDetailsReportDialog/PostDetailsReportDialog";
+import ReportDialog from "../../../../../components/ReportDialog/ReportDialog";
 import { usePostDetailsStore } from "../../../../../zustand/post-details";
 
 // TODO: implement action buttons
 const PostDetailsActions = () => {
   const [reportDialogVisible, setReportDialogVisible] = useState(false);
-
-  const setReportDialogVisibleHandler = (newReportDialogVisible: boolean) => {
-    setReportDialogVisible(newReportDialogVisible);
-  };
 
   const loading = usePostDetailsStore((state) => state.loading);
   const postDetails = usePostDetailsStore((state) => state.postDetails);
@@ -52,9 +48,12 @@ const PostDetailsActions = () => {
       >
         Dołącz
       </Button>
-      <PostDetailsReportDialog
-        reportDialogVisible={reportDialogVisible}
-        setReportDialogVisibleHandler={setReportDialogVisibleHandler}
+      <ReportDialog
+        dialogVisible={reportDialogVisible}
+        hideDialog={() => setReportDialogVisible(false)}
+        label="Napisz w jaki sposób post, który przeglądasz sprzeczny jest z regulaminem aplikacji:"
+        // TODO: send report request
+        postReport={() => {}}
       />
     </View>
   );
