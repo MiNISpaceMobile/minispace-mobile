@@ -8,4 +8,5 @@ export default interface PostDetails {
   eventTitle: string;
   participants: number;
   friends: User[];
+  subscribed: boolean;
 }
