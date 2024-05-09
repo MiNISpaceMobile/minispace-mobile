@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { ActivityIndicator, useTheme } from "react-native-paper";
 
 import { useAuthenticationStore } from "../../zustand/authentication";
-import AuthNavigation from "../AuthNavigation/AuthNavigation";
+import AuthTabs from "../AuthTabs/AuthTabs";
 
 const AppNavigation = () => {
   const fetchToken = useAuthenticationStore((state) => state.fetchToken);
@@ -16,7 +16,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer theme={useTheme()}>
       {user === null && <ActivityIndicator />}
-      {user === false && <AuthNavigation />}
+      {user === false && <AuthTabs />}
       {user === true && <AppNavigation />}
     </NavigationContainer>
   );
