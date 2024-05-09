@@ -1,23 +1,24 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { useEffect } from "react";
-import { ActivityIndicator, useTheme } from "react-native-paper";
+import { useState } from "react";
+import { useTheme } from "react-native-paper";
 
-import { useAuthenticationStore } from "../../zustand/authentication";
-import AuthTabs from "../AuthTabs/AuthTabs";
+import Authentication from "../../screens/Authentication/Authentication";
+import MainTabs from "../MainTabs/MainTabs";
 
 const AppNavigation = () => {
-  const fetchToken = useAuthenticationStore((state) => state.fetchToken);
-  const user = useAuthenticationStore((state) => state.user);
+  const [authVisible, setAuthVisible] = useState(true);
 
-  useEffect(() => {
-    fetchToken();
-  }, []);
+  const hideAuth = () => {
+    setAuthVisible(false);
+  };
 
   return (
     <NavigationContainer theme={useTheme()}>
-      {user === null && <ActivityIndicator />}
-      {user === false && <AuthTabs />}
-      {user === true && <AppNavigation />}
+      {authVisible === true ? (
+        <Authentication hideAuth={hideAuth} />
+      ) : (
+        <MainTabs />
+      )}
     </NavigationContainer>
   );
 };
