@@ -9,7 +9,7 @@ import { useNavigationStore } from "../../zustand/navigation";
 
 const Tab = createBottomTabNavigator();
 
-const MainNavigation = () => {
+const MainTabs = () => {
   const display = useNavigationStore((state) => state.display);
 
   return (
@@ -114,4 +114,4 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;
+export default MainTabs;
