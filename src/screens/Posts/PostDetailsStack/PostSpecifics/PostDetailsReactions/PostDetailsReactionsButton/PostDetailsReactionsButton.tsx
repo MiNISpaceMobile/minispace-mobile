@@ -15,6 +15,7 @@ const PostDetailsReactionsButton = ({
 }: PostDetailsReactionsButtonProps) => {
   return (
     <IconButton
+      style={{ marginHorizontal: -3 }}
       icon={icon + (icon === selectedReaction ? "" : "-outline")}
       mode={icon === selectedReaction ? "contained-tonal" : undefined}
       size={24}
