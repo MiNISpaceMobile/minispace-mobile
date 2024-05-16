@@ -11,7 +11,7 @@ interface PostListStackProps {
 const PostListStack = ({ route, navigation }: PostListStackProps) => {
   return (
     <View>
-      <Header route={route} navigation={navigation} />
+      <Header />
       <PostList route={route} navigation={navigation} />
     </View>
   );
