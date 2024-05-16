@@ -1,6 +1,6 @@
 import { SegmentedButtons } from "react-native-paper";
 
-import { CostType } from "../../../../../interfaces/PostFilters";
+import { CostType } from "../../../../../interfaces/EventFilters";
 import { usePostFiltersStore } from "../../../../../zustand/post-filters";
 import FilterListItem from "../FilterListItem/FilterListItem";
 

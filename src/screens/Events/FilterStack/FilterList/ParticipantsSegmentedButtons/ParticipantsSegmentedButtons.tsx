@@ -1,6 +1,6 @@
 import { SegmentedButtons } from "react-native-paper";
 
-import { ParticipantsType } from "../../../../../interfaces/PostFilters";
+import { ParticipantsType } from "../../../../../interfaces/EventFilters";
 import { usePostFiltersStore } from "../../../../../zustand/post-filters";
 import FilterListItem from "../FilterListItem/FilterListItem";
 

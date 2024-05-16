@@ -9,14 +9,7 @@ interface PostFiltersState {
 }
 
 const defaultFilters: PostFilters = {
-  eventTitle: null,
-  organizer: null,
-  cost: ["free", "paid"],
-  participants: ["0-50", "50-100", "100+"],
-  hasToBeRegisteredForEvent: true,
-  hasToHaveFriendRegisteredForEvent: true,
-  timeframe: ["current", "future"],
-  hasToBeMyEvent: false,
+  friendRegisteredForEvent: true,
 };
 
 export const usePostFiltersStore = create<PostFiltersState>((set, get) => ({
