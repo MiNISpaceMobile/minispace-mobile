@@ -68,7 +68,7 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
           </Dialog.Actions>
         </Dialog>
       </Portal>
-      <Header />
+      <Header route={route} navigation={navigation} />
       <PostSpecifics route={route} navigation={navigation} />
       <PostComments route={route} />
     </ScrollView>
