@@ -1,12 +1,7 @@
 import { View } from "react-native";
-import { useTheme, Text, IconButton } from "react-native-paper";
+import { useTheme, Text } from "react-native-paper";
 
-interface HeaderProps {
-  route: any;
-  navigation: any;
-}
-
-const Header = ({ route, navigation }: HeaderProps) => {
+const Header = () => {
   const theme = useTheme();
 
   return (
@@ -27,18 +22,6 @@ const Header = ({ route, navigation }: HeaderProps) => {
       >
         Posty
       </Text>
-      <IconButton
-        icon="filter"
-        iconColor={theme.colors.onPrimary}
-        size={32}
-        onPress={() => {
-          navigation.navigate("Filter");
-        }}
-        style={{
-          position: "absolute",
-          right: 10,
-        }}
-      />
     </View>
   );
 };
