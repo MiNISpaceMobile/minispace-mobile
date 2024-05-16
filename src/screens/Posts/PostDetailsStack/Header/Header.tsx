@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { useTheme, Text } from "react-native-paper";
+import { useTheme, Text, IconButton } from "react-native-paper";
 
 import Skeleton from "../../../../components/Skeleton/Skeleton";
 import { usePostDetailsStore } from "../../../../zustand/post-details";
 
-const Header = () => {
+interface HeaderProps {
+  route: any;
+  navigation: any;
+}
+
+const Header = ({ route, navigation }: HeaderProps) => {
   const theme = useTheme();
 
   const postDetails = usePostDetailsStore((state) => state.postDetails);
@@ -29,12 +34,30 @@ const Header = () => {
       }}
     >
       <Skeleton loading={loading} height={40} width="80%">
-        <Text
-          variant="headlineLarge"
-          style={{ color: theme.colors.onPrimary, fontWeight: "bold" }}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
         >
-          {title}
-        </Text>
+          <IconButton
+            icon="arrow-left"
+            size={32}
+            iconColor={theme.colors.onPrimary}
+            onPress={() => navigation.navigate("PostList")}
+            style={{ flex: 1 }}
+          />
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: theme.colors.onPrimary,
+              fontWeight: "bold",
+              flex: 8,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
       </Skeleton>
     </View>
   );
