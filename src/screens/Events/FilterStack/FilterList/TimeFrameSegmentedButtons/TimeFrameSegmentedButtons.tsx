@@ -1,6 +1,6 @@
 import { SegmentedButtons } from "react-native-paper";
 
-import { TimeFrameType } from "../../../../../interfaces/PostFilters";
+import { TimeFrameType } from "../../../../../interfaces/EventFilters";
 import { usePostFiltersStore } from "../../../../../zustand/post-filters";
 import FilterListItem from "../FilterListItem/FilterListItem";
 

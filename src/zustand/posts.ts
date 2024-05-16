@@ -1,7 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
 
-import { usePostFiltersStore } from "./post-filters";
 import Post from "../interfaces/Post";
 import PostFilters from "../interfaces/PostFilters";
 
