@@ -22,7 +22,7 @@ const FilterStack = ({ route, navigation }: FilterStackProps) => {
       e.preventDefault();
       unsubscribe();
       setDisplay("flex");
-      navigation.navigate("PostList");
+      navigation.navigate("EventList");
     });
   }, [navigation]);
 
