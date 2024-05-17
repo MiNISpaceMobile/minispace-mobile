@@ -18,6 +18,7 @@ const EventAttributesCheckbox = () => {
             needAvailableSpace: !filters.needAvailableSpace,
           });
         }}
+        position="leading"
       />
     </FilterListItem>
   );
