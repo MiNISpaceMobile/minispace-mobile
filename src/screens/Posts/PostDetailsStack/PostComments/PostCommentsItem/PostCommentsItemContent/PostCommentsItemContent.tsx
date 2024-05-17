@@ -1,9 +1,9 @@
 import { Text } from "react-native-paper";
 
-import PostComment from "../../../../../../interfaces/PostComment";
+import IPostComment from "../../../../../../interfaces/PostComment";
 
 interface PostCommentsItemContentProps {
-  comment: PostComment;
+  comment: IPostComment;
 }
 
 const PostCommentsItemContent = ({ comment }: PostCommentsItemContentProps) => {
