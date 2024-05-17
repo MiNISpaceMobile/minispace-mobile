@@ -1,11 +1,11 @@
 import axios from "axios";
 import { create } from "zustand";
 
-import Post from "../interfaces/Post";
+import IPost from "../interfaces/Post";
 import PostFilters from "../interfaces/PostFilters";
 
 interface PostsState {
-  posts: Post[];
+  posts: IPost[];
   error: null | string;
   loading: boolean;
   page: number;
@@ -15,7 +15,7 @@ interface PostsState {
 }
 
 export const usePostsStore = create<PostsState>((set, get) => ({
-  posts: [] as Post[],
+  posts: [] as IPost[],
   error: null,
   loading: false,
   page: 0,

@@ -3,14 +3,14 @@ import { useTheme } from "react-native-paper";
 
 import Filter from "./Filter/Filter";
 import RenderedFlatListItem from "./RenderedFlatListItem/RenderedFlatListItem";
-import Post from "../../../../../interfaces/Post";
+import IPost from "../../../../../interfaces/Post";
 import PostFilters from "../../../../../interfaces/PostFilters";
 import { usePostFiltersStore } from "../../../../../zustand/post-filters";
 
 interface RenderedFlatListProps {
   route: any;
   navigation: any;
-  posts: Post[];
+  posts: IPost[];
   refreshing: boolean;
   onRefresh: () => void;
   fetchNextPage: (filters: PostFilters) => void;
@@ -42,7 +42,7 @@ const RenderedFlatList = ({
           navigation={navigation}
         />
       )}
-      keyExtractor={(post: Post) => post.id}
+      keyExtractor={(post: IPost) => post.id}
       contentContainerStyle={{
         flexGrow: 1,
         overflow: "visible",

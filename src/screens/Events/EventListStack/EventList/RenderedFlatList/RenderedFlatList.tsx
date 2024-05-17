@@ -4,7 +4,7 @@ import { useTheme } from "react-native-paper";
 import RenderedFlatListItem from "./RenderedFlatListItem/RenderedFlatListItem";
 import IEvent from "../../../../../interfaces/Event";
 import EventFilters from "../../../../../interfaces/EventFilters";
-import Post from "../../../../../interfaces/Post";
+import IPost from "../../../../../interfaces/Post";
 import { useEventFiltersStore } from "../../../../../zustand/event-filters";
 
 interface RenderedFlatListProps {
@@ -42,7 +42,7 @@ const RenderedFlatList = ({
           navigation={navigation}
         />
       )}
-      keyExtractor={(post: Post) => post.id}
+      keyExtractor={(post: IPost) => post.id}
       contentContainerStyle={{
         flexGrow: 1,
         overflow: "visible",
