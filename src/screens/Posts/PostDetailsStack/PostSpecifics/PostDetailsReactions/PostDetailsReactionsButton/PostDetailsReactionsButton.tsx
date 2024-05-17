@@ -22,7 +22,7 @@ const PostDetailsReactionsButton = ({
       }}
     >
       <IconButton
-        style={{ marginBottom: -5 }}
+        style={{ marginBottom: 0 }}
         icon={icon + (icon === selectedReaction ? "" : "-outline")}
         mode={icon === selectedReaction ? "contained-tonal" : undefined}
         size={24}

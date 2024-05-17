@@ -33,6 +33,7 @@ const PostDetailsReactions = () => {
             justifyContent: "flex-start",
             flex: 1,
             alignSelf: "center",
+            marginBottom: -5,
           }}
         >
           <Button
