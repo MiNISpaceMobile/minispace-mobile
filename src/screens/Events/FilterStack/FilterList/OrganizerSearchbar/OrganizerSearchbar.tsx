@@ -1,11 +1,11 @@
 import { Searchbar } from "react-native-paper";
 
-import { usePostFiltersStore } from "../../../../../zustand/post-filters";
+import { useEventFiltersStore } from "../../../../../zustand/event-filters";
 import FilterListItem from "../FilterListItem/FilterListItem";
 
 const OrganizerSearchbar = () => {
-  const filters = usePostFiltersStore((state) => state.filters);
-  const setFilters = usePostFiltersStore((state) => state.setFilters);
+  const filters = useEventFiltersStore((state) => state.filters);
+  const setFilters = useEventFiltersStore((state) => state.setFilters);
 
   return (
     <FilterListItem label="Nazwa organizatora">

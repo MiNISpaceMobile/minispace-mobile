@@ -1,12 +1,12 @@
 import { SegmentedButtons } from "react-native-paper";
 
 import { ParticipantsType } from "../../../../../interfaces/EventFilters";
-import { usePostFiltersStore } from "../../../../../zustand/post-filters";
+import { useEventFiltersStore } from "../../../../../zustand/event-filters";
 import FilterListItem from "../FilterListItem/FilterListItem";
 
 const ParticipantsSegmentedButtons = () => {
-  const filters = usePostFiltersStore((state) => state.filters);
-  const setFilters = usePostFiltersStore((state) => state.setFilters);
+  const filters = useEventFiltersStore((state) => state.filters);
+  const setFilters = useEventFiltersStore((state) => state.setFilters);
 
   return (
     <FilterListItem label="Liczba uczestników">
