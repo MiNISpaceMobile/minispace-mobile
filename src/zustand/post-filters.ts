@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-import PostFilters from "../interfaces/PostFilters";
+import IPostFilters from "../interfaces/PostFilters";
 
 interface PostFiltersState {
-  filters: PostFilters;
-  setFilters: (filters: PostFilters) => void;
+  filters: IPostFilters;
+  setFilters: (filters: IPostFilters) => void;
   resetFilters: () => void;
 }
 
-const defaultFilters: PostFilters = {
+const defaultFilters: IPostFilters = {
   friendRegisteredForEvent: true,
 };
 

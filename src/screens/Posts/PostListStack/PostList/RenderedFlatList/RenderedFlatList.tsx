@@ -4,7 +4,7 @@ import { useTheme } from "react-native-paper";
 import Filter from "./Filter/Filter";
 import RenderedFlatListItem from "./RenderedFlatListItem/RenderedFlatListItem";
 import IPost from "../../../../../interfaces/Post";
-import PostFilters from "../../../../../interfaces/PostFilters";
+import IPostFilters from "../../../../../interfaces/PostFilters";
 import { usePostFiltersStore } from "../../../../../zustand/post-filters";
 
 interface RenderedFlatListProps {
@@ -13,7 +13,7 @@ interface RenderedFlatListProps {
   posts: IPost[];
   refreshing: boolean;
   onRefresh: () => void;
-  fetchNextPage: (filters: PostFilters) => void;
+  fetchNextPage: (filters: IPostFilters) => void;
   isLastPage: boolean;
   loading: boolean;
 }
