@@ -3,12 +3,12 @@ import "react-native-gesture-handler";
 
 import { PaperProvider } from "react-native-paper";
 
-import MainNavigation from "./src/navigation/MainNavigation/MainNavigation";
+import AppNavigation from "./src/navigation/AppNavigation/AppNavigation";
 
-export default function App() {
+export default () => {
   return (
     <PaperProvider>
-      <MainNavigation />
+      <AppNavigation />
     </PaperProvider>
   );
-}
+};
