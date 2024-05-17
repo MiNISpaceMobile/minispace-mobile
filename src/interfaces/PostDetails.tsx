@@ -1,4 +1,4 @@
-import User from "./User";
+import IUser from "./User";
 
 export default interface IPostDetails {
   id: string;
@@ -7,6 +7,6 @@ export default interface IPostDetails {
   imageURI: string;
   eventTitle: string;
   participants: number;
-  friends: User[];
+  friends: IUser[];
   subscribed: boolean;
 }
