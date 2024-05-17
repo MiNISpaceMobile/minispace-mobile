@@ -31,7 +31,7 @@ const PostCommentsItemActions = ({ comment }: PostCommentsItemActionsProps) => {
       <ReportDialog
         dialogVisible={reportDialogVisible}
         hideDialog={() => setReportDialogVisible(false)}
-        label="Napisz w jaki sposób komentarz, który zgłaszasz sprzeczny jest z regulaminem aplikacji:"
+        label="Napisz w jaki sposób komentarz, który zgłaszasz jest sprzeczny z regulaminem aplikacji:"
         // TODO: send report request
         postReport={() => {}}
       />

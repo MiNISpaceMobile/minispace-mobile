@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Chip } from "react-native-paper";
+import { Chip, Text } from "react-native-paper";
 
 import { usePostFiltersStore } from "../../../../../../zustand/post-filters";
 import { usePostsStore } from "../../../../../../zustand/posts";
@@ -29,11 +29,16 @@ const Filter = () => {
     <View
       style={{
         paddingBottom: 15,
-        alignItems: "flex-start",
+        alignItems: "center",
         flexGrow: 1,
         overflow: "visible",
+        flexDirection: "row",
+        // backgroundColor: "red",
       }}
     >
+      <Text variant="labelLarge" style={{ paddingHorizontal: 5 }}>
+        Filtry:
+      </Text>
       <Chip
         icon={checked ? "check" : ""}
         onPress={toggleCheck}
