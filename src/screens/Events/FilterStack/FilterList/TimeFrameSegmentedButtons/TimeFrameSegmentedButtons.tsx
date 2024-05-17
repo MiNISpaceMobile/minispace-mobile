@@ -9,7 +9,7 @@ const TimeFrameSegmentedButtons = () => {
   const setFilters = useEventFiltersStore((state) => state.setFilters);
 
   return (
-    <FilterListItem label="Termin wydwarzenia">
+    <FilterListItem label="Termin wydarzenia">
       <SegmentedButtons
         value={filters.timeframe}
         onValueChange={(value: string[]) => {
