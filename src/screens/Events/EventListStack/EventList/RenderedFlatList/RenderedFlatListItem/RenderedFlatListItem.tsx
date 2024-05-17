@@ -94,6 +94,13 @@ const RenderedFlatListItem = ({
               </View>
             </View>
             <View style={{ alignItems: "center", flex: 1 }}>
+              {event.active && !event.availableSpace && (
+                <View style={{ alignItems: "center" }}>
+                  <Icon source="cancel" size={32} color={theme.colors.error} />
+                  <Text variant="bodyMedium">brak</Text>
+                  <Text variant="bodyMedium">miejsc</Text>
+                </View>
+              )}
               {event.active && event.lowAvailableSpace && (
                 <View style={{ alignItems: "center" }}>
                   <Icon
