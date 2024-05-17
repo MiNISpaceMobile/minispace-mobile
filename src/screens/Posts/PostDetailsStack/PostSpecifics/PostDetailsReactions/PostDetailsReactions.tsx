@@ -78,7 +78,7 @@ const PostDetailsReactions = () => {
         <ReportDialog
           dialogVisible={reportDialogVisible}
           hideDialog={() => setReportDialogVisible(false)}
-          label="Napisz w jaki sposób post, który przeglądasz sprzeczny jest z regulaminem aplikacji:"
+          label="Napisz w jaki sposób post, który przeglądasz jest sprzeczny z regulaminem aplikacji:"
           // TODO: send report request
           postReport={() => {}}
         />
