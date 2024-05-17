@@ -32,6 +32,7 @@ const PostDetailsReactions = () => {
           style={{
             justifyContent: "flex-start",
             flex: 1,
+            alignSelf: "center",
           }}
         >
           <Button
@@ -72,9 +73,6 @@ const PostDetailsReactions = () => {
             selectedReaction={selectedReaction}
             setSelectedReactionHandler={setSelectedReactionHandler}
           />
-          <Text variant="titleMedium" style={{ padding: 10 }}>
-            45
-          </Text>
         </View>
         <ReportDialog
           dialogVisible={reportDialogVisible}
