@@ -6,5 +6,6 @@ export default interface IEvent {
   endDate: Date;
   friendParticipants: number;
   rating: number | null;
-  availableSpace: boolean;
+  lowAvailableSpace: boolean;
+  active: boolean;
 }
