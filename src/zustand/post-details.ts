@@ -1,10 +1,10 @@
 import axios from "axios";
 import { create } from "zustand";
 
-import PostDetails from "../interfaces/PostDetails";
+import IPostDetails from "../interfaces/PostDetails";
 
 interface PostDetailsState {
-  postDetails: null | PostDetails;
+  postDetails: null | IPostDetails;
   error: null | string;
   loading: boolean;
   fetchPostDetails: (id: string) => void;
