@@ -5,10 +5,10 @@ import { useTheme } from "react-native-paper";
 import PostCommentsItemActions from "./PostCommentsItemActions/PostCommentsItemActions";
 import PostCommentsItemContent from "./PostCommentsItemContent/PostCommentsItemContent";
 import PostCommentsItemHeader from "./PostCommentsItemHeader/PostCommentsItemHeader";
-import IPostComment from "../../../../../interfaces/PostComment";
+import IComment from "../../../../../interfaces/Comment";
 
 interface PostCommentsItemProps {
-  comment: IPostComment;
+  comment: IComment;
 }
 
 const PostCommentsItem = ({ comment }: PostCommentsItemProps) => {

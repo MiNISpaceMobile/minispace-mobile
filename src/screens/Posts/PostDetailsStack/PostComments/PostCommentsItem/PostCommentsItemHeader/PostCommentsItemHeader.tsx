@@ -2,10 +2,10 @@ import moment from "moment";
 import { View } from "react-native";
 import { Avatar, Text } from "react-native-paper";
 
-import IPostComment from "../../../../../../interfaces/PostComment";
+import IComment from "../../../../../../interfaces/Comment";
 
 interface PostCommentsItemHeaderProps {
-  comment: IPostComment;
+  comment: IComment;
 }
 
 const PostCommentsItemHeader = ({ comment }: PostCommentsItemHeaderProps) => {
