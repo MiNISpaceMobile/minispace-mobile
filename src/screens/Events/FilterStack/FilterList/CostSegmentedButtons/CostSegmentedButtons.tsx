@@ -16,8 +16,8 @@ const CostSegmentedButtons = () => {
           setFilters({ ...filters, cost: value as CostType[] });
         }}
         buttons={[
-          { value: "free", label: "darmowe" },
-          { value: "paid", label: "płatne" },
+          { value: "free", label: "darmowe", showSelectedCheck: true },
+          { value: "paid", label: "płatne", showSelectedCheck: true },
         ]}
         multiSelect
       />

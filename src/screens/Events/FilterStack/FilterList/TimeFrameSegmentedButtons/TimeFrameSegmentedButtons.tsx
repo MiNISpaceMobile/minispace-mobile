@@ -16,9 +16,24 @@ const TimeFrameSegmentedButtons = () => {
           setFilters({ ...filters, timeframe: value as TimeFrameType[] });
         }}
         buttons={[
-          { value: "past", label: "minione", style: { flex: 1 } },
-          { value: "current", label: "trwające", style: { flex: 1 } },
-          { value: "future", label: "zaplanowane", style: { flex: 2 } },
+          {
+            value: "past",
+            label: "minione",
+            style: { flex: 1 },
+            showSelectedCheck: true,
+          },
+          {
+            value: "current",
+            label: "trwające",
+            style: { flex: 1 },
+            showSelectedCheck: true,
+          },
+          {
+            value: "future",
+            label: "zaplanowane",
+            style: { flex: 2 },
+            showSelectedCheck: true,
+          },
         ]}
         multiSelect
       />

@@ -16,9 +16,9 @@ const ParticipantsSegmentedButtons = () => {
           setFilters({ ...filters, participants: value as ParticipantsType[] });
         }}
         buttons={[
-          { value: "0-50", label: "0-50" },
-          { value: "50-100", label: "50-100" },
-          { value: "100+", label: "100+" },
+          { value: "0-50", label: "0-50", showSelectedCheck: true },
+          { value: "50-100", label: "50-100", showSelectedCheck: true },
+          { value: "100+", label: "100+", showSelectedCheck: true },
         ]}
         multiSelect
       />
