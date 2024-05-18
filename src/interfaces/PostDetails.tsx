@@ -8,5 +8,4 @@ export default interface IPostDetails {
   eventTitle: string;
   participants: number;
   friends: IUser[];
-  subscribed: boolean;
 }
