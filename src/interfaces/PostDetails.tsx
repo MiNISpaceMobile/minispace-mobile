@@ -1,12 +1,12 @@
-import User from "./User";
+import IUser from "./User";
 
-export default interface PostDetails {
+export default interface IPostDetails {
   id: string;
   title: string;
   content: string;
   imageURI: string;
   eventTitle: string;
   participants: number;
-  friends: User[];
+  friends: IUser[];
   subscribed: boolean;
 }

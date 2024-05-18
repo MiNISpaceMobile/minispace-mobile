@@ -1,19 +1,18 @@
 import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
 import { useTheme } from "react-native-paper";
 
-import Filter from "./Filter/Filter";
 import RenderedFlatListItem from "./RenderedFlatListItem/RenderedFlatListItem";
-import IPost from "../../../../../interfaces/Post";
-import IPostFilters from "../../../../../interfaces/PostFilters";
-import { usePostFiltersStore } from "../../../../../zustand/post-filters";
+import IEvent from "../../../../../interfaces/Event";
+import EventFilters from "../../../../../interfaces/EventFilters";
+import { useEventFiltersStore } from "../../../../../zustand/event-filters";
 
 interface RenderedFlatListProps {
   route: any;
   navigation: any;
-  posts: IPost[];
+  events: IEvent[];
   refreshing: boolean;
   onRefresh: () => void;
-  fetchNextPage: (filters: IPostFilters) => void;
+  fetchNextPage: (filters: EventFilters) => void;
   isLastPage: boolean;
   loading: boolean;
 }
@@ -21,7 +20,7 @@ interface RenderedFlatListProps {
 const RenderedFlatList = ({
   route,
   navigation,
-  posts,
+  events,
   refreshing,
   onRefresh,
   fetchNextPage,
@@ -30,19 +29,19 @@ const RenderedFlatList = ({
 }: RenderedFlatListProps) => {
   const theme = useTheme();
 
-  const filters = usePostFiltersStore((state) => state.filters);
+  const filters = useEventFiltersStore((state) => state.filters);
 
   return (
     <FlatList
-      data={posts}
+      data={events}
       renderItem={({ item }) => (
         <RenderedFlatListItem
-          post={item}
+          event={item}
           route={route}
           navigation={navigation}
         />
       )}
-      keyExtractor={(post: IPost) => post.id}
+      keyExtractor={(event: IEvent) => event.id}
       contentContainerStyle={{
         flexGrow: 1,
         overflow: "visible",
@@ -58,7 +57,6 @@ const RenderedFlatList = ({
         fetchNextPage(filters);
       }}
       onEndReachedThreshold={0.8}
-      ListHeaderComponent={<Filter />}
       ListFooterComponent={
         !isLastPage ? (
           <ActivityIndicator

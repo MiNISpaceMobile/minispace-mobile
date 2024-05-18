@@ -1,21 +1,21 @@
 import axios from "axios";
 import { create } from "zustand";
 
-import Post from "../interfaces/Post";
-import PostFilters from "../interfaces/PostFilters";
+import IPost from "../interfaces/Post";
+import IPostFilters from "../interfaces/PostFilters";
 
 interface PostsState {
-  posts: Post[];
+  posts: IPost[];
   error: null | string;
   loading: boolean;
   page: number;
   isLastPage: boolean;
   refresh: () => void;
-  fetchPosts: (filters: PostFilters) => void;
+  fetchPosts: (filters: IPostFilters) => void;
 }
 
 export const usePostsStore = create<PostsState>((set, get) => ({
-  posts: [] as Post[],
+  posts: [] as IPost[],
   error: null,
   loading: false,
   page: 0,
@@ -23,7 +23,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
   refresh: () => {
     set({ posts: [], page: 0, isLastPage: false });
   },
-  fetchPosts: async (filters: PostFilters) => {
+  fetchPosts: async (filters: IPostFilters) => {
     if (get().isLastPage) {
       return;
     }

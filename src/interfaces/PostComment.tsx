@@ -1,10 +1,10 @@
-import User from "./User";
+import IUser from "./User";
 
-export default interface PostComment {
+export default interface IPostComment {
   id: string;
-  owner: User;
+  owner: IUser;
   content: string;
   createdAt: number;
   likes: number;
-  replies: PostComment[];
+  replies: IPostComment[];
 }

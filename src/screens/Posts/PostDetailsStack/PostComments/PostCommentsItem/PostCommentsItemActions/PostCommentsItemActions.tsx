@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 
 import ReportDialog from "../../../../../../components/ReportDialog/ReportDialog";
-import PostComment from "../../../../../../interfaces/PostComment";
+import IPostComment from "../../../../../../interfaces/PostComment";
 
 interface PostCommentsItemActionsProps {
-  comment: PostComment;
+  comment: IPostComment;
 }
 
 const PostCommentsItemActions = ({ comment }: PostCommentsItemActionsProps) => {

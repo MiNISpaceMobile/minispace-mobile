@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Button } from "react-native-paper";
 
-import { usePostFiltersStore } from "../../../../zustand/post-filters";
+import { useEventFiltersStore } from "../../../../zustand/event-filters";
 
 interface SearchProps {
   route: any;
@@ -9,16 +9,12 @@ interface SearchProps {
 }
 
 const Search = ({ route, navigation }: SearchProps) => {
-  const resetFilters = usePostFiltersStore((state) => state.resetFilters);
+  const resetFilters = useEventFiltersStore((state) => state.resetFilters);
 
   return (
     <View style={{ padding: 20, flexDirection: "row" }}>
       <View style={{ flex: 2 }}>
-        <Button
-          icon="close-circle"
-          mode="contained-tonal"
-          onPress={resetFilters}
-        >
+        <Button icon="close-circle" mode="outlined" onPress={resetFilters}>
           Resetuj
         </Button>
       </View>
@@ -26,8 +22,8 @@ const Search = ({ route, navigation }: SearchProps) => {
       <View style={{ flex: 2 }}>
         <Button
           icon="magnify"
-          mode="contained-tonal"
-          onPress={() => navigation.navigate("PostList")}
+          mode="outlined"
+          onPress={() => navigation.navigate("EventList")}
         >
           Szukaj
         </Button>

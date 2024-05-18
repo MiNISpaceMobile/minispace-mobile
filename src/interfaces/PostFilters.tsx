@@ -1,3 +1,3 @@
-export default interface PostFilters {
+export default interface IPostFilters {
   friendRegisteredForEvent: boolean;
 }

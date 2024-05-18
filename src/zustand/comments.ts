@@ -1,17 +1,17 @@
 import axios from "axios";
 import { create } from "zustand";
 
-import PostComment from "../interfaces/PostComment";
+import IPostComment from "../interfaces/PostComment";
 
 interface CommentsState {
-  comments: PostComment[];
+  comments: IPostComment[];
   error: null | string;
   loading: boolean;
   fetchComments: (id: string) => void;
 }
 
 export const useCommentsStore = create<CommentsState>((set, get) => ({
-  comments: [] as PostComment[],
+  comments: [] as IPostComment[],
   error: null,
   loading: false,
   fetchComments: async (id: string) => {
