@@ -42,7 +42,7 @@ const RenderedFlatList = ({
           navigation={navigation}
         />
       )}
-      keyExtractor={(post: IPost) => post.id}
+      keyExtractor={(event: IEvent) => event.id}
       contentContainerStyle={{
         flexGrow: 1,
         overflow: "visible",
