@@ -4,7 +4,6 @@ import { useTheme } from "react-native-paper";
 import RenderedFlatListItem from "./RenderedFlatListItem/RenderedFlatListItem";
 import IEvent from "../../../../../interfaces/Event";
 import EventFilters from "../../../../../interfaces/EventFilters";
-import IPost from "../../../../../interfaces/Post";
 import { useEventFiltersStore } from "../../../../../zustand/event-filters";
 
 interface RenderedFlatListProps {
