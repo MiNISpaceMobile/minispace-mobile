@@ -1,11 +1,21 @@
 import { View } from "react-native";
-import { useTheme, Text } from "react-native-paper";
+import { useTheme, Text, IconButton } from "react-native-paper";
+
+import Skeleton from "../Skeleton/Skeleton";
 
 interface HeaderProps {
-  title: string;
+  navigation?: any;
+  loading?: boolean;
+  title?: string | null;
+  navigateRouteName?: string;
 }
 
-const Header = ({ title }: HeaderProps) => {
+const Header = ({
+  navigation,
+  loading,
+  title,
+  navigateRouteName,
+}: HeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -17,15 +27,34 @@ const Header = ({ title }: HeaderProps) => {
         alignItems: "center",
       }}
     >
-      <Text
-        variant="headlineLarge"
-        style={{
-          color: theme.colors.onPrimary,
-          fontWeight: "bold",
-        }}
-      >
-        {title}
-      </Text>
+      <Skeleton loading={loading ?? false} height={40} width="80%">
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          {navigation && navigateRouteName && (
+            <IconButton
+              icon="arrow-left"
+              size={32}
+              iconColor={theme.colors.onPrimary}
+              onPress={() => navigation.navigate(navigateRouteName)}
+              style={{ flex: 1 }}
+            />
+          )}
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: theme.colors.onPrimary,
+              fontWeight: "bold",
+              flex: navigation && navigateRouteName ? 8 : 0,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
+      </Skeleton>
     </View>
   );
 };
