@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-import Header from "./Header/Header";
 import PostList from "./PostList/PostList";
+import Header from "../../../components/Header/Header";
 
 interface PostListStackProps {
   route: any;
@@ -11,7 +11,7 @@ interface PostListStackProps {
 const PostListStack = ({ route, navigation }: PostListStackProps) => {
   return (
     <View>
-      <Header />
+      <Header title="Posty" />
       <PostList route={route} navigation={navigation} />
     </View>
   );

@@ -1,7 +1,11 @@
 import { View } from "react-native";
 import { useTheme, Text } from "react-native-paper";
 
-const Header = () => {
+interface HeaderProps {
+  title: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -20,7 +24,7 @@ const Header = () => {
           fontWeight: "bold",
         }}
       >
-        Posty
+        {title}
       </Text>
     </View>
   );
