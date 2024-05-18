@@ -14,11 +14,7 @@ const Search = ({ route, navigation }: SearchProps) => {
   return (
     <View style={{ padding: 20, flexDirection: "row" }}>
       <View style={{ flex: 2 }}>
-        <Button
-          icon="close-circle"
-          mode="contained-tonal"
-          onPress={resetFilters}
-        >
+        <Button icon="close-circle" mode="outlined" onPress={resetFilters}>
           Resetuj
         </Button>
       </View>
@@ -26,7 +22,7 @@ const Search = ({ route, navigation }: SearchProps) => {
       <View style={{ flex: 2 }}>
         <Button
           icon="magnify"
-          mode="contained-tonal"
+          mode="outlined"
           onPress={() => navigation.navigate("EventList")}
         >
           Szukaj
