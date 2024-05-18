@@ -18,12 +18,12 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
     set({ loading: true, comments: [] });
 
     axios({
-      url: `/comments/${id}`,
+      url: `/comments/by-post/${id}`,
       method: "get",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
     })
       .then((response) => {
-        set({ comments: response.data.postComments, error: null });
+        set({ comments: response.data.comments, error: null });
       })
       .catch((error) => {
         set({ comments: [], error });
