@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { Button, Dialog, Portal, Text } from "react-native-paper";
 
-import Header from "./Header/Header";
 import PostComments from "./PostComments/PostComments";
 import PostSpecifics from "./PostSpecifics/PostSpecifics";
+import Header from "../../../components/Header/Header";
 import IPost from "../../../interfaces/Post";
 import { useNavigationStore } from "../../../zustand/navigation";
 import { usePostDetailsStore } from "../../../zustand/post-details";
@@ -24,6 +24,9 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
     (state) => state.fetchPostDetails,
   );
 
+  const postDetails = usePostDetailsStore((state) => state.postDetails);
+  const loading = usePostDetailsStore((state) => state.loading);
+
   useEffect(() => {
     fetchPostDetails(post.id);
   }, []);
@@ -33,6 +36,14 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
   }, [error]);
 
   const setDisplay = useNavigationStore((state) => state.setDisplay);
+
+  const [title, setTitle] = useState<null | string>(null);
+
+  useEffect(() => {
+    if (postDetails !== null) {
+      setTitle(postDetails.eventTitle);
+    }
+  }, [postDetails]);
 
   useEffect(() => {
     setDisplay("none");
@@ -68,7 +79,12 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
           </Dialog.Actions>
         </Dialog>
       </Portal>
-      <Header route={route} navigation={navigation} />
+      <Header
+        navigation={navigation}
+        loading={loading}
+        title={title}
+        navigateRouteName="PostList"
+      />
       <PostSpecifics route={route} navigation={navigation} />
       <PostComments route={route} />
     </ScrollView>
