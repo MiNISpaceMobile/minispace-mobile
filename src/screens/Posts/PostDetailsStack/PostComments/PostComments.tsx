@@ -6,7 +6,7 @@ import ErrorStatus from "./ErrorStatus/ErrorStatus";
 import PostCommentsItem from "./PostCommentsItem/PostCommentsItem";
 import Skeleton from "../../../../components/Skeleton/Skeleton";
 import IPost from "../../../../interfaces/Post";
-import { useCommentsStore } from "../../../../zustand/comments";
+import { usePostCommentsStore } from "../../../../zustand/post-comments";
 
 interface PostCommentsProps {
   route: any;
@@ -15,10 +15,10 @@ interface PostCommentsProps {
 const PostComments = ({ route }: PostCommentsProps) => {
   const { post } = route.params as { post: IPost };
 
-  const comments = useCommentsStore((state) => state.comments);
-  const error = useCommentsStore((state) => state.error);
-  const loading = useCommentsStore((state) => state.loading);
-  const fetchComments = useCommentsStore((state) => state.fetchComments);
+  const comments = usePostCommentsStore((state) => state.comments);
+  const error = usePostCommentsStore((state) => state.error);
+  const loading = usePostCommentsStore((state) => state.loading);
+  const fetchComments = usePostCommentsStore((state) => state.fetchComments);
 
   useEffect(() => {
     fetchComments(post.id);

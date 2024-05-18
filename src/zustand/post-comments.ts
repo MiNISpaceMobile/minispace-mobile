@@ -3,14 +3,14 @@ import { create } from "zustand";
 
 import IPostComment from "../interfaces/PostComment";
 
-interface CommentsState {
+interface PostCommentsState {
   comments: IPostComment[];
   error: null | string;
   loading: boolean;
   fetchComments: (id: string) => void;
 }
 
-export const useCommentsStore = create<CommentsState>((set, get) => ({
+export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
   comments: [] as IPostComment[],
   error: null,
   loading: false,
