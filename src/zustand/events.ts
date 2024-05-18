@@ -38,8 +38,19 @@ export const useEventsStore = create<EventState>((set, get) => ({
       params: { page: get().page },
     })
       .then((response) => {
+        // first event with !active has firstInactive,
+        // usefull because this event has divider in event list
+        let firstInactiveAppeared = false;
         set((state) => ({
-          events: state.events.concat(response.data.events),
+          events: state.events.concat(
+            response.data.events.map((eventItem: IEvent) => {
+              if (!firstInactiveAppeared && !eventItem.active) {
+                firstInactiveAppeared = true;
+                return { ...eventItem, firstInactive: true };
+              }
+              return { ...eventItem, firstInactive: false };
+            }),
+          ),
           error: null,
           page: state.page + 1,
           isLastPage: response.data.isLastPage,
