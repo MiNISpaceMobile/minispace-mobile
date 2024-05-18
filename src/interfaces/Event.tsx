@@ -9,4 +9,5 @@ export default interface IEvent {
   availableSpace: boolean;
   lowAvailableSpace: boolean;
   active: boolean;
+  firstInactive: boolean;
 }
