@@ -10,6 +10,8 @@ interface PostFiltersState {
 
 const defaultFilters: IPostFilters = {
   friendRegisteredForEvent: true,
+  eventId: null,
+  eventTitle: null,
 };
 
 export const usePostFiltersStore = create<PostFiltersState>((set, get) => ({

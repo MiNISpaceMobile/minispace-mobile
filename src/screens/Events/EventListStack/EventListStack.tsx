@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
 import EventList from "./EventList/EventList";
-import Header from "./Header/Header";
+import Header from "../../../components/Header/Header";
 
 interface EventListStackProps {
   route: any;
@@ -11,7 +11,14 @@ interface EventListStackProps {
 const EventListStack = ({ route, navigation }: EventListStackProps) => {
   return (
     <View>
-      <Header route={route} navigation={navigation} />
+      <Header
+        navigation={navigation}
+        loading={false}
+        title="Wydarzenia"
+        navigateRouteName="Filter"
+        iconVariant="right"
+        rightIcon="filter"
+      />
       <EventList route={route} navigation={navigation} />
     </View>
   );

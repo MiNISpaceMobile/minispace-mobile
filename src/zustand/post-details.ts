@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { create } from "zustand";
 
 import IPostDetails from "../interfaces/PostDetails";
 
 interface PostDetailsState {
   postDetails: null | IPostDetails;
-  error: null | string;
+  error: AxiosError | null;
   loading: boolean;
   fetchPostDetails: (id: string) => void;
 }
@@ -25,7 +25,7 @@ export const usePostDetailsStore = create<PostDetailsState>((set, get) => ({
       .then((response) => {
         set({ postDetails: response.data.postDetails, error: null });
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         set({ postDetails: null, error });
       })
       .finally(() => {

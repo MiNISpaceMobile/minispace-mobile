@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { create } from "zustand";
 
 import IPost from "../interfaces/Post";
@@ -6,7 +6,7 @@ import IPostFilters from "../interfaces/PostFilters";
 
 interface PostsState {
   posts: IPost[];
-  error: null | string;
+  error: AxiosError | null;
   loading: boolean;
   page: number;
   isLastPage: boolean;
@@ -45,7 +45,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
           isLastPage: response.data.isLastPage,
         }));
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         set({ posts: [], error, page: 0, isLastPage: false });
       })
       .finally(() => {

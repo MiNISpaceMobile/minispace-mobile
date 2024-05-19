@@ -28,6 +28,7 @@ const PostSpecifics = ({ route, navigation }: PostSpecificsProps) => {
         route={route}
         navigation={navigation}
         imageURI={imageURI}
+        eventId={postDetails ? postDetails.eventId : null}
       />
       <View style={{ padding: 10 }}>
         <PostDetailsDescription />

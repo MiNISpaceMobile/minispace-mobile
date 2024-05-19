@@ -2,13 +2,13 @@ import moment from "moment";
 import { View } from "react-native";
 import { Avatar, Text } from "react-native-paper";
 
-import IPostComment from "../../../../../../interfaces/PostComment";
+import IComment from "../../../../interfaces/Comment";
 
-interface PostCommentsItemHeaderProps {
-  comment: IPostComment;
+interface CommentsItemHeaderProps {
+  comment: IComment;
 }
 
-const PostCommentsItemHeader = ({ comment }: PostCommentsItemHeaderProps) => {
+const CommentsItemHeader = ({ comment }: CommentsItemHeaderProps) => {
   return (
     <View
       style={{
@@ -30,4 +30,4 @@ const PostCommentsItemHeader = ({ comment }: PostCommentsItemHeaderProps) => {
   );
 };
 
-export default PostCommentsItemHeader;
+export default CommentsItemHeader;

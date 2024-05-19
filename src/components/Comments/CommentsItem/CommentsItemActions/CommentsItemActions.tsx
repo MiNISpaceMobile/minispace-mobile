@@ -2,14 +2,14 @@ import { useState } from "react";
 import { View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 
-import ReportDialog from "../../../../../../components/ReportDialog/ReportDialog";
-import IPostComment from "../../../../../../interfaces/PostComment";
+import IComment from "../../../../interfaces/Comment";
+import ReportDialog from "../../../ReportDialog/ReportDialog";
 
-interface PostCommentsItemActionsProps {
-  comment: IPostComment;
+interface CommentsItemActionsProps {
+  comment: IComment;
 }
 
-const PostCommentsItemActions = ({ comment }: PostCommentsItemActionsProps) => {
+const CommentsItemActions = ({ comment }: CommentsItemActionsProps) => {
   const [reportDialogVisible, setReportDialogVisible] = useState(false);
 
   return (
@@ -39,4 +39,4 @@ const PostCommentsItemActions = ({ comment }: PostCommentsItemActionsProps) => {
   );
 };
 
-export default PostCommentsItemActions;
+export default CommentsItemActions;

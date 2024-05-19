@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 import PostDetailsReactionsButton from "./PostDetailsReactionsButton/PostDetailsReactionsButton";
 import ReportDialog from "../../../../../components/ReportDialog/ReportDialog";
@@ -26,26 +26,26 @@ const PostDetailsReactions = () => {
   };
 
   return (
-    <Skeleton loading={loading}>
-      <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            justifyContent: "flex-start",
-            flex: 1,
-            alignSelf: "center",
-            marginBottom: -5,
-          }}
+    <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          justifyContent: "flex-start",
+          flex: 1,
+          alignSelf: "center",
+          marginBottom: -5,
+        }}
+      >
+        <Button
+          icon="flag-variant"
+          mode="contained"
+          style={{ margin: 10 }}
+          onPress={() => setReportDialogVisible(true)}
+          disabled={loading}
         >
-          <Button
-            icon="flag-variant"
-            mode="contained"
-            style={{ margin: 10 }}
-            onPress={() => setReportDialogVisible(true)}
-            disabled={loading}
-          >
-            Zgłoś
-          </Button>
-        </View>
+          Zgłoś
+        </Button>
+      </View>
+      <Skeleton loading={loading}>
         <View
           style={{
             flexDirection: "row",
@@ -75,15 +75,15 @@ const PostDetailsReactions = () => {
             setSelectedReactionHandler={setSelectedReactionHandler}
           />
         </View>
-        <ReportDialog
-          dialogVisible={reportDialogVisible}
-          hideDialog={() => setReportDialogVisible(false)}
-          label="Napisz w jaki sposób post, który przeglądasz jest sprzeczny z regulaminem aplikacji:"
-          // TODO: send report request
-          postReport={() => {}}
-        />
-      </View>
-    </Skeleton>
+      </Skeleton>
+      <ReportDialog
+        dialogVisible={reportDialogVisible}
+        hideDialog={() => setReportDialogVisible(false)}
+        label="Napisz w jaki sposób post, który przeglądasz jest sprzeczny z regulaminem aplikacji:"
+        // TODO: send report request
+        postReport={() => {}}
+      />
+    </View>
   );
 };
 
