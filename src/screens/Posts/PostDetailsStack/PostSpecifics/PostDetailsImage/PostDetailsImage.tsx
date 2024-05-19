@@ -37,9 +37,9 @@ const PostDetailsImage = ({
       onPressIn={fadeIn}
       onPressOut={fadeOut}
       onPress={() => {
-        navigation.navigate("events", {
-          screen: "EventDetails",
-          params: { eventId },
+        navigation.navigate("PostEventDetails", {
+          eventId,
+          fromPostDetails: true,
         });
       }}
     >
