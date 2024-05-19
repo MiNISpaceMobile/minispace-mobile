@@ -12,7 +12,10 @@ interface EventDetailsStackProps {
 }
 
 const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
-  const { eventId } = route.params as { eventId: string };
+  const { eventId, fromPostDetails } = route.params as {
+    eventId: string;
+    fromPostDetails?: boolean;
+  };
 
   const [errorDialogVisible, setErrorDialogVisible] = useState(false);
 
@@ -43,6 +46,12 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
   }, [eventDetails]);
 
   useEffect(() => {
+    // when user goes from post details to event details, don't show bottom navigation on return
+    // listener in post details is responsible for bottom navigation management
+    if (fromPostDetails) {
+      return;
+    }
+
     setDisplay("none");
 
     // https://stackoverflow.com/a/64789273
@@ -50,13 +59,13 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
       e.preventDefault();
       unsubscribe();
       setDisplay("flex");
-      navigation.navigate("EventList");
+      navigation.goBack();
     });
   }, [navigation]);
 
   const goBack = () => {
     setErrorDialogVisible(false);
-    navigation.navigate("EventList");
+    navigation.goBack();
   };
 
   return (
@@ -81,9 +90,9 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
           navigation={navigation}
           loading={loading}
           title={title}
-          navigateRouteName="EventList"
           iconVariant="left"
           leftIcon="arrow-left"
+          goBack
         />
       </View>
     </ScrollView>
