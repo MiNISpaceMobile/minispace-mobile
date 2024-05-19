@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 import PostDetailsReactionsButton from "./PostDetailsReactionsButton/PostDetailsReactionsButton";
 import ReportDialog from "../../../../../components/ReportDialog/ReportDialog";
