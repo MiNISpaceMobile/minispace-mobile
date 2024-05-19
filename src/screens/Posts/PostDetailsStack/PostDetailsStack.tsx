@@ -84,6 +84,8 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
         loading={loading}
         title={title}
         navigateRouteName="PostList"
+        iconVariant="left"
+        leftIcon="arrow-left"
       />
       <PostSpecifics route={route} navigation={navigation} />
       <PostComments route={route} />
