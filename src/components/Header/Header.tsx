@@ -12,6 +12,7 @@ interface HeaderProps {
   iconVariant?: "left" | "right";
   leftIcon?: IconSource;
   rightIcon?: IconSource;
+  goBack?: boolean;
 }
 
 const Header = ({
@@ -22,6 +23,7 @@ const Header = ({
   iconVariant,
   leftIcon,
   rightIcon,
+  goBack,
 }: HeaderProps) => {
   const theme = useTheme();
 
@@ -37,12 +39,18 @@ const Header = ({
       {iconVariant === "left" &&
         leftIcon &&
         navigation &&
-        navigateRouteName && (
+        (navigateRouteName || goBack) && (
           <IconButton
             icon={leftIcon}
             iconColor={theme.colors.onPrimary}
             size={32}
-            onPress={() => navigation.navigate(navigateRouteName)}
+            onPress={() => {
+              if (goBack) {
+                navigation.goBack();
+              } else {
+                navigation.navigate(navigateRouteName);
+              }
+            }}
             style={{ position: "absolute", left: 0 }}
           />
         )}
@@ -64,12 +72,18 @@ const Header = ({
       {iconVariant === "right" &&
         rightIcon &&
         navigation &&
-        navigateRouteName && (
+        (navigateRouteName || goBack) && (
           <IconButton
             icon={rightIcon}
             iconColor={theme.colors.onPrimary}
             size={32}
-            onPress={() => navigation.navigate(navigateRouteName)}
+            onPress={() => {
+              if (goBack) {
+                navigation.goBack();
+              } else {
+                navigation.navigate(navigateRouteName);
+              }
+            }}
             style={{ position: "absolute", right: 0 }}
           />
         )}
