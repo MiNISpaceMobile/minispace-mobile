@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Chip, Text } from "react-native-paper";
 
 import { usePostFiltersStore } from "../../../../../../zustand/post-filters";
@@ -20,21 +20,28 @@ const Filter = () => {
   const toggleCheck = () => {
     refresh();
     // pass `!checked` to make sure that there is no race condition with state updates
-    fetchPosts({ friendRegisteredForEvent: !checked });
-    setFilters({ friendRegisteredForEvent: !checked });
+    fetchPosts({ ...filters, friendRegisteredForEvent: !checked });
+    setFilters({ ...filters, friendRegisteredForEvent: !checked });
     setChecked((oldChecked) => !oldChecked);
   };
 
+  const removeEvent = () => {
+    refresh();
+    fetchPosts(filters);
+    setFilters({ ...filters, eventId: null, eventTitle: null });
+  };
+
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         paddingBottom: 15,
         alignItems: "center",
         flexGrow: 1,
         overflow: "visible",
         flexDirection: "row",
-        // backgroundColor: "red",
       }}
+      showsHorizontalScrollIndicator={false}
+      horizontal
     >
       <Text variant="labelLarge" style={{ paddingHorizontal: 5 }}>
         Filtry:
@@ -47,7 +54,16 @@ const Filter = () => {
       >
         wydarzenia znajomych
       </Chip>
-    </View>
+      {filters.eventTitle && (
+        <Chip
+          style={{ marginLeft: 7 }}
+          onPress={removeEvent}
+          onClose={removeEvent}
+        >
+          {filters.eventTitle}
+        </Chip>
+      )}
+    </ScrollView>
   );
 };
 

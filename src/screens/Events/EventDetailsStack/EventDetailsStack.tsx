@@ -16,8 +16,9 @@ interface EventDetailsStackProps {
 }
 
 const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
-  const { eventId, fromPostDetails } = route.params as {
+  const { eventId, eventTitle, fromPostDetails } = route.params as {
     eventId: string;
+    eventTitle: string;
     fromPostDetails?: boolean;
   };
 
@@ -103,7 +104,11 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
           <EventDetailsActions />
           <EventDetailsParticipants />
         </View>
-        <EventDetailsContent eventId={eventId} />
+        <EventDetailsContent
+          navigation={navigation}
+          eventId={eventId}
+          eventTitle={eventTitle}
+        />
       </View>
     </ScrollView>
   );

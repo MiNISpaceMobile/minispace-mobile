@@ -6,14 +6,23 @@ import EventDetailsContentTabLabel from "./EventDetailsContentTabLabel/EventDeta
 import Comments from "../../../../components/Comments/Comments";
 import { useEventCommentsStore } from "../../../../zustand/event-comments";
 import { useEventDetailsStore } from "../../../../zustand/event-details";
+import { useNavigationStore } from "../../../../zustand/navigation";
+import { usePostFiltersStore } from "../../../../zustand/post-filters";
+import { usePostsStore } from "../../../../zustand/posts";
 
-type TabLabel = "details" | "comments" | "posts";
+type TabLabel = "details" | "comments";
 
 interface EventDetailsContentProps {
+  navigation: any;
   eventId: string;
+  eventTitle: string;
 }
 
-const EventDetailsContent = ({ eventId }: EventDetailsContentProps) => {
+const EventDetailsContent = ({
+  navigation,
+  eventId,
+  eventTitle,
+}: EventDetailsContentProps) => {
   const [tabLabel, setTabLabel] = useState<TabLabel>("details");
 
   const eventCommentsLoading = useEventCommentsStore((state) => state.loading);
@@ -26,6 +35,13 @@ const EventDetailsContent = ({ eventId }: EventDetailsContentProps) => {
   }, []);
 
   const eventDetailsLoading = useEventDetailsStore((state) => state.loading);
+  const filters = usePostFiltersStore((state) => state.filters);
+  const setFilters = usePostFiltersStore((state) => state.setFilters);
+
+  const setDisplay = useNavigationStore((state) => state.setDisplay);
+
+  const refresh = usePostsStore((state) => state.refresh);
+  const fetchPosts = usePostsStore((state) => state.fetchPosts);
 
   return (
     <View>
@@ -50,10 +66,15 @@ const EventDetailsContent = ({ eventId }: EventDetailsContentProps) => {
         />
         <EventDetailsContentTabLabel
           label="Posty"
-          selected={tabLabel === "posts"}
+          selected={false}
           onPress={() => {
             if (!eventDetailsLoading) {
-              setTabLabel("posts");
+              setDisplay("flex");
+              refresh();
+              fetchPosts(filters);
+              setFilters({ ...filters, eventId, eventTitle });
+              navigation.goBack();
+              navigation.navigate("PostList");
             }
           }}
         />
