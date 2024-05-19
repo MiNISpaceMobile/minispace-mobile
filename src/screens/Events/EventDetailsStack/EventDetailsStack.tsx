@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Button, Dialog, Portal, Text } from "react-native-paper";
 
+import EventDetailsActions from "./EventDetailsActions/EventDetailsActions";
 import EventDetailsImage from "./EventDetailsImage/EventDetailsImage";
 import Header from "../../../components/Header/Header";
 import { useEventDetailsStore } from "../../../zustand/event-details";
@@ -95,7 +96,10 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
           leftIcon="arrow-left"
           goBack
         />
+        <View style={{ padding: 10 }}>
         <EventDetailsImage imageURI={eventDetails?.imageURI} />
+          <EventDetailsActions />
+        </View>
       </View>
     </ScrollView>
   );
