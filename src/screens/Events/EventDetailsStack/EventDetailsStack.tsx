@@ -102,8 +102,8 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
         <View style={{ padding: 10 }}>
           <EventDetailsActions />
           <EventDetailsParticipants />
-          <EventDetailsContent />
         </View>
+        <EventDetailsContent eventId={eventId} />
       </View>
     </ScrollView>
   );

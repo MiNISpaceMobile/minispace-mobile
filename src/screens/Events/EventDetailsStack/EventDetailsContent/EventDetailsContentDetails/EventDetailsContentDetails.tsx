@@ -26,7 +26,7 @@ const EventDetailsContentDetails = () => {
   }, [eventDetails]);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ padding: 10 }}>
       <Text variant="titleLarge" style={{ marginBottom: 5 }}>
         Opis
       </Text>
@@ -37,7 +37,7 @@ const EventDetailsContentDetails = () => {
       </Skeleton>
       <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <Icon source="calendar-month" size={32} />
-        <Skeleton loading={loading}>
+        <Skeleton loading={loading} height={32} width="100%">
           <Text variant="bodyMedium" style={{ marginLeft: 10 }}>
             {startDate && endDate ? formatDateRange(startDate, endDate) : null}
           </Text>
@@ -45,7 +45,7 @@ const EventDetailsContentDetails = () => {
       </View>
       <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <Icon source="map-marker" size={32} />
-        <Skeleton loading={loading}>
+        <Skeleton loading={loading} height={32} width="100%">
           <Text variant="bodyMedium" style={{ marginLeft: 10 }}>
             {location}
           </Text>
