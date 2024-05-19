@@ -1,5 +1,5 @@
-import { View } from "react-native";
-import { Button, Dialog, Portal } from "react-native-paper";
+import { useEffect } from "react";
+import { Portal, Snackbar } from "react-native-paper";
 
 interface ReportDialogAcknowledgementProps {
   dialogVisible: boolean;
@@ -10,17 +10,26 @@ const ReportDialogAcknowledgement = ({
   dialogVisible,
   hideDialog,
 }: ReportDialogAcknowledgementProps) => {
+  useEffect(() => {
+    if (dialogVisible) {
+      setTimeout(hideDialog, 5000);
+    }
+  }, [dialogVisible]);
+
   return (
-    <View>
-      <Portal>
-        <Dialog visible={dialogVisible} onDismiss={hideDialog}>
-          <Dialog.Title>Dziękujemy za zgłoszenie!</Dialog.Title>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>Zamknij</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-    </View>
+    <Portal>
+      <Snackbar
+        wrapperStyle={{ marginBottom: 10 }}
+        visible={dialogVisible}
+        onDismiss={hideDialog}
+        action={{
+          label: "Zamknij",
+          onPress: hideDialog,
+        }}
+      >
+        Dziękujemy za zgłoszenie!
+      </Snackbar>
+    </Portal>
   );
 };
 
