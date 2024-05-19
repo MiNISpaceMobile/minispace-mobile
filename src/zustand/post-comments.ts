@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { create } from "zustand";
 
 import IComment from "../interfaces/Comment";
 
 interface PostCommentsState {
   comments: IComment[];
-  error: null | string;
+  error: AxiosError | null;
   loading: boolean;
   fetchComments: (id: string) => void;
 }
@@ -25,7 +25,7 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
       .then((response) => {
         set({ comments: response.data.comments, error: null });
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         set({ comments: [], error });
       })
       .finally(() => {
