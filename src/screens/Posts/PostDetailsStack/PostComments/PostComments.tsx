@@ -5,7 +5,6 @@ import { Text } from "react-native-paper";
 import ErrorStatus from "./ErrorStatus/ErrorStatus";
 import PostCommentsItem from "./PostCommentsItem/PostCommentsItem";
 import Skeleton from "../../../../components/Skeleton/Skeleton";
-import IPost from "../../../../interfaces/Post";
 import { usePostCommentsStore } from "../../../../zustand/post-comments";
 
 interface PostCommentsProps {
@@ -13,7 +12,7 @@ interface PostCommentsProps {
 }
 
 const PostComments = ({ route }: PostCommentsProps) => {
-  const { post } = route.params as { post: IPost };
+  const { postId } = route.params as { postId: string };
 
   const comments = usePostCommentsStore((state) => state.comments);
   const error = usePostCommentsStore((state) => state.error);
@@ -21,7 +20,7 @@ const PostComments = ({ route }: PostCommentsProps) => {
   const fetchComments = usePostCommentsStore((state) => state.fetchComments);
 
   useEffect(() => {
-    fetchComments(post.id);
+    fetchComments(postId);
   }, []);
 
   return (

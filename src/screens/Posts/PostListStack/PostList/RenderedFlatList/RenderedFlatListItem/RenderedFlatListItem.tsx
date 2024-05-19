@@ -38,7 +38,7 @@ const RenderedFlatListItem = ({
       onPressIn={fadeIn}
       onPressOut={fadeOut}
       onPress={() => {
-        navigation.navigate("PostDetails", { post });
+        navigation.navigate("PostDetails", { postId: post.id });
       }}
     >
       <Surface

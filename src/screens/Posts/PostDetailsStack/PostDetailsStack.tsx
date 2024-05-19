@@ -5,7 +5,6 @@ import { Button, Dialog, Portal, Text } from "react-native-paper";
 import PostComments from "./PostComments/PostComments";
 import PostSpecifics from "./PostSpecifics/PostSpecifics";
 import Header from "../../../components/Header/Header";
-import IPost from "../../../interfaces/Post";
 import { useNavigationStore } from "../../../zustand/navigation";
 import { usePostDetailsStore } from "../../../zustand/post-details";
 
@@ -15,7 +14,7 @@ interface PostDetailsStackProps {
 }
 
 const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
-  const { post } = route.params as { post: IPost };
+  const { postId } = route.params as { postId: string };
 
   const [errorDialogVisible, setErrorDialogVisible] = useState(false);
 
@@ -28,7 +27,7 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
   const loading = usePostDetailsStore((state) => state.loading);
 
   useEffect(() => {
-    fetchPostDetails(post.id);
+    fetchPostDetails(postId);
   }, []);
 
   useEffect(() => {
