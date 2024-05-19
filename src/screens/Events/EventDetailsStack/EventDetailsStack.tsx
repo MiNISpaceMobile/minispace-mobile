@@ -4,6 +4,7 @@ import { Button, Dialog, Portal, Text } from "react-native-paper";
 
 import EventDetailsActions from "./EventDetailsActions/EventDetailsActions";
 import EventDetailsImage from "./EventDetailsImage/EventDetailsImage";
+import EventDetailsParticipants from "./EventDetailsParticipants/EventDetailsParticipants";
 import Header from "../../../components/Header/Header";
 import { useEventDetailsStore } from "../../../zustand/event-details";
 import { useNavigationStore } from "../../../zustand/navigation";
@@ -97,8 +98,9 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
           goBack
         />
         <View style={{ padding: 10 }}>
-        <EventDetailsImage imageURI={eventDetails?.imageURI} />
+          <EventDetailsImage imageURI={eventDetails?.imageURI} />
           <EventDetailsActions />
+          <EventDetailsParticipants />
         </View>
       </View>
     </ScrollView>
