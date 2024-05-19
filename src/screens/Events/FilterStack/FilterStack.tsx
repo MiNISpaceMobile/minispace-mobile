@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { View } from "react-native";
 
 import FilterList from "./FilterList/FilterList";
-import Header from "./Header/Header";
 import Search from "./Search/Search";
+import Header from "../../../components/Header/Header";
 import { useNavigationStore } from "../../../zustand/navigation";
 
 interface FilterStackProps {
@@ -28,7 +28,13 @@ const FilterStack = ({ route, navigation }: FilterStackProps) => {
 
   return (
     <View style={{ flexDirection: "column", height: "100%" }}>
-      <Header />
+      <Header
+        navigation={navigation}
+        title="Filtry"
+        navigateRouteName="EventList"
+        iconVariant="left"
+        leftIcon="arrow-left"
+      />
       <FilterList />
       <Search route={route} navigation={navigation} />
     </View>
