@@ -52,6 +52,11 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
       e.preventDefault();
       unsubscribe();
       setDisplay("flex");
+      // going back from post details should reset events navigation stack, explanation:
+      // when user click image (in post details) and is naviated to event details,
+      // route in events navigation stack is set to `EventDetails`,
+      // and chaning to events in bottom navbar doesn't show event list as defautl view
+      navigation.navigate("events", { screen: "EventList" });
       navigation.navigate("PostList");
     });
   }, [navigation]);
