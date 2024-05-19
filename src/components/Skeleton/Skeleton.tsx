@@ -1,12 +1,6 @@
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
-import SkeletonExpo from "moti/build/skeleton/expo";
-import React, {
-  JSXElementConstructor,
-  ReactChild,
-  ReactElement,
-  useEffect,
-} from "react";
+import React, { JSXElementConstructor, ReactElement, useEffect } from "react";
 import {
   DimensionValue,
   View,
@@ -23,7 +17,9 @@ import Reanimated, {
 } from "react-native-reanimated";
 
 interface SkeletonProps {
-  children: ReactElement<any, string | JSXElementConstructor<any>>;
+  children:
+    | ReactElement<any, string | JSXElementConstructor<any>>
+    | ReactElement<any, string | JSXElementConstructor<any>>[];
   loading: boolean;
   height?: DimensionValue;
   width?: DimensionValue;
