@@ -3,7 +3,6 @@ import { ScrollView, View } from "react-native";
 import { Button, Dialog, Portal, Text } from "react-native-paper";
 
 import Header from "../../../components/Header/Header";
-import IEvent from "../../../interfaces/Event";
 import { useEventDetailsStore } from "../../../zustand/event-details";
 import { useNavigationStore } from "../../../zustand/navigation";
 
@@ -13,7 +12,7 @@ interface EventDetailsStackProps {
 }
 
 const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
-  const { event } = route.params as { event: IEvent };
+  const { eventId } = route.params as { eventId: string };
 
   const [errorDialogVisible, setErrorDialogVisible] = useState(false);
 
@@ -26,7 +25,7 @@ const EventDetailsStack = ({ route, navigation }: EventDetailsStackProps) => {
   const loading = useEventDetailsStore((state) => state.loading);
 
   useEffect(() => {
-    fetchEventDetails(event.id);
+    fetchEventDetails(eventId);
   }, []);
 
   useEffect(() => {
