@@ -47,7 +47,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
             isAdmin: response.data.isAdmin,
             isOrganizer: response.data.isOrganizer,
             emailNotifications: response.data.emailNotifications,
-            profilePicture: null, // TODO: this property will be implemented to backend in the future
+            profilePicture: response.data.profilePictureUrl,
           },
           error: null,
         });
