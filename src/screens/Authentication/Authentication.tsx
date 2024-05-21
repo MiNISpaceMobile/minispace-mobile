@@ -25,6 +25,8 @@ const Authentication = ({ hideAuth }: AuthenticationProps) => {
   const [verifier, setVerifier] = useState<string | null>(null);
 
   const setJwt = useUserStore((state) => state.setJwt);
+  const fetchUser = useUserStore((state) => state.fetchUser);
+  const userError = useUserStore((state) => state.error);
 
   useEffect(() => {
     const subscription = Linking.addEventListener("url", (event) => {
@@ -43,27 +45,73 @@ const Authentication = ({ hideAuth }: AuthenticationProps) => {
   }, []);
 
   useEffect(() => {
-    if (token === null || secret === null || verifier === null) {
-      return;
-    }
+    (async () => {
+      if (token === null || secret === null || verifier === null) {
+        return;
+      }
 
-    // fetch jwt token
-    axios({
-      url: "/auth/usos/jwt",
-      method: "post",
-      baseURL: process.env.EXPO_PUBLIC_API_URL,
-      data: { token, secret, verifier },
-    })
-      .then(async (response) => {
-        setJwt(response.data.jwt);
-        hideAuth();
+      let jwt: string | null = null;
+
+      // fetch jwt token
+      await axios({
+        url: "/auth/usos/jwt",
+        method: "post",
+        baseURL: process.env.EXPO_PUBLIC_API_URL,
+        data: { token, secret, verifier },
       })
-      .catch((error: AxiosError) => {
-        setError(error);
+        .then(async (response) => {
+          setJwt(response.data.jwt);
+          jwt = response.data.jwt;
+        })
+        .catch((error: AxiosError) => {
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
+      if (!jwt) {
+        // this condition should never be met
+        // it was written to make the jwt has string type and if something very bad were to happen
+        setError(new AxiosError("jwt token not found"));
+        return;
+      }
+
+      let ok = false;
+
+      // check if token is ok
+      await axios({
+        url: "/ping/authorized",
+        method: "get",
+        baseURL: process.env.EXPO_PUBLIC_API_URL,
+        headers: { Authorization: "Bearer " + jwt },
       })
-      .finally(() => {
-        setLoading(false);
-      });
+        .then(async (response) => {
+          ok = true;
+        })
+        .catch((error: AxiosError) => {
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
+      if (!ok) {
+        setError(new AxiosError("invalid jwt token"));
+        return;
+      }
+
+      // fetch user data
+      await fetchUser();
+
+      if (userError) {
+        setError(userError);
+        return;
+      }
+
+      // if everyting is ok, hide auth
+      hideAuth();
+    })();
   }, [token, secret, verifier]);
 
   const loginWithUsos = async () => {
