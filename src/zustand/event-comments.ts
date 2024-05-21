@@ -20,7 +20,7 @@ export const useEventCommentsStore = create<EventCommentsState>((set, get) => ({
     axios({
       url: `/comments/by-event/${id}`,
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
     })
       .then((response) => {
         set({ comments: response.data.comments, error: null });
