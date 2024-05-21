@@ -32,7 +32,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     await axios({
       url: "/api/user",
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL2,
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: { Authorization: "Bearer " + jwt },
     })
       .then(async (response) => {
