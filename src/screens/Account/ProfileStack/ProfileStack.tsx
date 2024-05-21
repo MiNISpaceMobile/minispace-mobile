@@ -1,18 +1,19 @@
 import { View } from "react-native";
 
 import AccountDetails from "./AccountDetails/AccountDetails";
+import ChangeScreenButtons from "./ChangeScreenButtons/ChangeScreenButtons";
 import Header from "../../../components/Header/Header";
 
 interface ProfileStackProps {
-  route: any;
   navigation: any;
 }
 
-const ProfileStack = ({ route, navigation }: ProfileStackProps) => {
+const ProfileStack = ({ navigation }: ProfileStackProps) => {
   return (
-    <View>
+    <View style={{ minHeight: "100%" }}>
       <Header title="Profil" />
       <AccountDetails />
+      <ChangeScreenButtons navigation={navigation} />
     </View>
   );
 };
