@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { Avatar } from "react-native-paper";
 
 import { useUserStore } from "../../zustand/user";
@@ -45,47 +45,37 @@ const ProfilePicture = ({
     setProfilePicture(user.profilePicture);
   }, [user]);
 
-  if (userProfilePicture) {
-    return (
-      <Avatar.Image
-        style={style}
-        size={size}
-        source={{ uri: userProfilePicture }}
-      />
-    );
-  }
-
-  if (userFirstName && userLastName) {
-    return (
-      <Avatar.Text
-        style={style}
-        size={size}
-        label={userFirstName[0] + userLastName[0]}
-      />
-    );
-  }
-
-  if (profilePicture) {
-    return (
-      <Avatar.Image
-        style={style}
-        size={size}
-        source={{ uri: profilePicture }}
-      />
-    );
-  }
-
-  if (firstName && lastName) {
-    return (
-      <Avatar.Text
-        style={style}
-        size={size}
-        label={firstName[0] + lastName[0]}
-      />
-    );
-  }
-
-  return <Avatar.Icon style={style} size={size} icon="account" />;
+  return (
+    <View>
+      {userProfilePicture ? (
+        <Avatar.Image
+          style={style}
+          size={size}
+          source={{ uri: userProfilePicture }}
+        />
+      ) : userFirstName && userLastName ? (
+        <Avatar.Text
+          style={style}
+          size={size}
+          label={userFirstName[0] + userLastName[0]}
+        />
+      ) : profilePicture ? (
+        <Avatar.Image
+          style={style}
+          size={size}
+          source={{ uri: profilePicture }}
+        />
+      ) : firstName && lastName ? (
+        <Avatar.Text
+          style={style}
+          size={size}
+          label={firstName[0] + lastName[0]}
+        />
+      ) : (
+        <Avatar.Icon style={style} size={size} icon="account" />
+      )}
+    </View>
+  );
 };
 
 export default ProfilePicture;
