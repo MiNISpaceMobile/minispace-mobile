@@ -1,14 +1,38 @@
+import { useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
+import Header from "../../../components/Header/Header";
+import { useNavigationStore } from "../../../zustand/navigation";
+
 interface EditProfileStackProps {
-  route: any;
   navigation: any;
 }
 
-const EditProfileStack = ({ route, navigation }: EditProfileStackProps) => {
+const EditProfileStack = ({ navigation }: EditProfileStackProps) => {
+  const setDisplay = useNavigationStore((state) => state.setDisplay);
+
+  useEffect(() => {
+    setDisplay("none");
+
+    // https://stackoverflow.com/a/64789273
+    const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
+      e.preventDefault();
+      unsubscribe();
+      setDisplay("flex");
+      navigation.goBack();
+    });
+  }, [navigation]);
+
   return (
     <View>
+      <Header
+        title="Edytuj profil"
+        iconVariant="left"
+        leftIcon="arrow-left"
+        navigation={navigation}
+        goBack
+      />
       <Text>EditProfileStack</Text>
     </View>
   );
