@@ -7,6 +7,7 @@ import { View } from "react-native";
 import { Button, HelperText, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useAuthStore } from "../../zustand/auth";
 import { useUserStore } from "../../zustand/user";
 
 const callbackUrl = makeRedirectUri({
@@ -24,7 +25,7 @@ const Authentication = ({ hideAuth }: AuthenticationProps) => {
   const [secret, setSecret] = useState<string | null>(null);
   const [verifier, setVerifier] = useState<string | null>(null);
 
-  const setJwt = useUserStore((state) => state.setJwt);
+  const setJwt = useAuthStore((state) => state.setJwt);
   const fetchUser = useUserStore((state) => state.fetchUser);
   const userError = useUserStore((state) => state.error);
 
