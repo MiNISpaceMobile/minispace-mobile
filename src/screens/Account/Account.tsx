@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import EditProfileStack from "./EditProfileStack/EditProfileStack";
 import FriendsStack from "./FriendsStack/FriendsStack";
 import ProfileStack from "./ProfileStack/ProfileStack";
 import SettingsStack from "./SettingsStack/SettingsStack";
@@ -19,14 +18,6 @@ const Account = () => {
         children={(props) => (
           <SafeAreaView>
             <ProfileStack {...props} />
-          </SafeAreaView>
-        )}
-      />
-      <Stack.Screen
-        name="EditProfile"
-        children={(props) => (
-          <SafeAreaView>
-            <EditProfileStack {...props} />
           </SafeAreaView>
         )}
       />

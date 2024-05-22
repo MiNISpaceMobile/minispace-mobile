@@ -8,13 +8,7 @@ interface ChangeScreenButtonsProps {
 
 const ChangeScreenButtons = ({ navigation }: ChangeScreenButtonsProps) => {
   return (
-    <View style={{ marginTop: 20, padding: 50 }}>
-      <ChangeScreenButtonsItem
-        navigation={navigation}
-        routeName="EditProfile"
-        label="Edytuj profil"
-        icon="account-edit"
-      />
+    <View style={{ marginHorizontal: 50, flex: 1 }}>
       <ChangeScreenButtonsItem
         navigation={navigation}
         routeName="Friends"

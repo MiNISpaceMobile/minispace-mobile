@@ -2,6 +2,7 @@ import { View } from "react-native";
 
 import AccountDetails from "./AccountDetails/AccountDetails";
 import ChangeScreenButtons from "./ChangeScreenButtons/ChangeScreenButtons";
+import ProfileStackLogout from "./ProfileStackLogout/ProfileStackLogout";
 import Header from "../../../components/Header/Header";
 
 interface ProfileStackProps {
@@ -14,6 +15,7 @@ const ProfileStack = ({ navigation }: ProfileStackProps) => {
       <Header title="Profil" />
       <AccountDetails />
       <ChangeScreenButtons navigation={navigation} />
+      <ProfileStackLogout />
     </View>
   );
 };

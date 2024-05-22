@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Icon, Text, TouchableRipple } from "react-native-paper";
 
 import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
 import { useUserStore } from "../../../../zustand/user";
@@ -24,12 +24,29 @@ const AccountDetails = () => {
         flexDirection: "row",
         alignItems: "center",
         alignSelf: "center",
-        marginTop: 70,
+        flex: 1,
       }}
     >
-      <View style={{ marginRight: 20 }}>
-        <ProfilePicture size={100} />
-      </View>
+      <>
+        <View style={{ marginRight: 20 }}>
+          <ProfilePicture size={100} />
+          <TouchableRipple
+            style={{
+              position: "absolute",
+              bottom: -5,
+              right: -5,
+              backgroundColor: "white",
+              borderRadius: 12,
+              elevation: 2,
+              padding: 4,
+            }}
+            onPress={() => {}} // TODO: implement profile picture change
+            borderless
+          >
+            <Icon source="pencil" size={28} />
+          </TouchableRipple>
+        </View>
+      </>
       <View style={{ flexDirection: "column" }}>
         <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
           {firstName}
