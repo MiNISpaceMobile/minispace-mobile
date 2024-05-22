@@ -2,6 +2,8 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
+import { useUserStore } from "../../../../../zustand/user";
+
 interface ChangeScreenButtonsItemProps {
   navigation: any;
   routeName: string;
@@ -15,6 +17,8 @@ const ChangeScreenButtonsItem = ({
   label,
   icon,
 }: ChangeScreenButtonsItemProps) => {
+  const user = useUserStore((state) => state.user);
+
   return (
     <View style={{ marginVertical: 20 }}>
       <Button
@@ -23,6 +27,7 @@ const ChangeScreenButtonsItem = ({
         icon={icon}
         mode="contained-tonal"
         onPress={() => navigation.navigate(routeName)}
+        disabled={user === null}
       >
         <Text variant="headlineSmall">{label}</Text>
       </Button>

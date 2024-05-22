@@ -30,21 +30,24 @@ const AccountDetails = () => {
       <>
         <View style={{ marginRight: 20 }}>
           <ProfilePicture size={100} />
-          <TouchableRipple
-            style={{
-              position: "absolute",
-              bottom: -5,
-              right: -5,
-              backgroundColor: "white",
-              borderRadius: 12,
-              elevation: 2,
-              padding: 4,
-            }}
-            onPress={() => {}} // TODO: implement profile picture change
-            borderless
-          >
-            <Icon source="pencil" size={28} />
-          </TouchableRipple>
+          {user && (
+            <TouchableRipple
+              style={{
+                position: "absolute",
+                bottom: -5,
+                right: -5,
+                borderRadius: 12,
+                backgroundColor: "white",
+                elevation: 2,
+                padding: 4,
+              }}
+              onPress={() => {}} // TODO: implement profile picture change
+              disabled={user === null}
+              borderless
+            >
+              <Icon source="pencil" size={28} />
+            </TouchableRipple>
+          )}
         </View>
       </>
       <View style={{ flexDirection: "column" }}>
