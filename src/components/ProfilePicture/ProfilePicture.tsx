@@ -9,7 +9,7 @@ interface ProfilePictureProps {
   style?: StyleProp<ViewStyle>;
   userFirstName?: string;
   userLastName?: string;
-  userProfilePicture?: string;
+  userProfilePicture?: string | null;
 }
 
 const ProfilePicture = ({
