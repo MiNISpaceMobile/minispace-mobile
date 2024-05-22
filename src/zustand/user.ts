@@ -9,8 +9,7 @@ interface UserStore {
   error: AxiosError | null;
   loading: boolean;
   fetchUser: (jwt?: string) => Promise<void>;
-  getJwt: () => Promise<string | null>;
-  setJwt: (jwt: string) => Promise<void>;
+  clearUser: () => void;
 }
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -59,10 +58,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
         set({ loading: false });
       });
   },
-  getJwt: async () => {
-    return await SecureStore.getItemAsync("jwt");
-  },
-  setJwt: async (jwt: string) => {
-    return await SecureStore.setItemAsync("jwt", jwt);
+  clearUser: () => {
+    set({ user: null });
   },
 }));
