@@ -1,16 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
 
+import FriendList from "./FriendList/FriendList";
+import FriendRequestsReceived from "./FriendRequestsReceived/FriendRequestsReceived";
+import FriendRequestsSent from "./FriendRequestsSent/FriendRequestsSent";
+import TabNavigation from "./TabNavigation/TabNavigation";
 import Header from "../../../components/Header/Header";
 import { useNavigationStore } from "../../../zustand/navigation";
+
+export type Tab = "friendsList" | "requestsReceived" | "requestsSent";
 
 interface FriendsStackProps {
   navigation: any;
 }
 
 const FriendsStack = ({ navigation }: FriendsStackProps) => {
+  const [tab, setTab] = useState<Tab>("friendsList");
+
   const setDisplay = useNavigationStore((state) => state.setDisplay);
+
+  const setTabHandler = (newTab: Tab) => {
+    setTab(newTab);
+  };
 
   useEffect(() => {
     setDisplay("none");
@@ -33,7 +44,10 @@ const FriendsStack = ({ navigation }: FriendsStackProps) => {
         navigation={navigation}
         goBack
       />
-      <Text>FriendsStack</Text>
+      <TabNavigation tab={tab} setTabHandler={setTabHandler} />
+      {tab === "friendsList" && <FriendList />}
+      {tab === "requestsReceived" && <FriendRequestsReceived />}
+      {tab === "requestsSent" && <FriendRequestsSent />}
     </View>
   );
 };
