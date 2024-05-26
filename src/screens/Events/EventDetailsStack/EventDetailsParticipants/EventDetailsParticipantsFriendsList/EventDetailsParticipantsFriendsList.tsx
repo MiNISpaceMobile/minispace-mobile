@@ -1,6 +1,7 @@
 import { FlatList, View } from "react-native";
-import { Avatar, Button, Dialog, List, Portal } from "react-native-paper";
+import { Button, Dialog, List, Portal } from "react-native-paper";
 
+import ProfilePicture from "../../../../../components/ProfilePicture/ProfilePicture";
 import User from "../../../../../interfaces/User";
 
 interface EventDetailsParticipantsFriendsListProps {
@@ -24,11 +25,12 @@ const EventDetailsParticipantsFriendsList = ({
               data={friends}
               renderItem={({ item }) => (
                 <List.Item
-                  title={item.username}
+                  title={`${item.firstName} ${item.lastName}`}
                   left={() => (
-                    <Avatar.Text
+                    <ProfilePicture
                       size={32}
-                      label={item.username.slice(0, 2).trim()}
+                      userFirstName={item.firstName}
+                      userLastName={item.lastName}
                     />
                   )}
                 />

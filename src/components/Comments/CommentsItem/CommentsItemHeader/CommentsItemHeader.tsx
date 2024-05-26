@@ -1,8 +1,9 @@
 import moment from "moment";
 import { View } from "react-native";
-import { Avatar, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 
 import IComment from "../../../../interfaces/Comment";
+import ProfilePicture from "../../../ProfilePicture/ProfilePicture";
 
 interface CommentsItemHeaderProps {
   comment: IComment;
@@ -18,12 +19,13 @@ const CommentsItemHeader = ({ comment }: CommentsItemHeaderProps) => {
         marginBottom: 10,
       }}
     >
-      <Avatar.Text
+      <ProfilePicture
         size={32}
-        label={comment.owner.username.slice(0, 2).trim()}
+        userFirstName={comment.owner.firstName}
+        userLastName={comment.owner.lastName}
       />
       <Text variant="titleSmall" style={{ margin: 10 }}>
-        {comment.owner.username}
+        {`${comment.owner.firstName} ${comment.owner.lastName}`}
       </Text>
       <Text>{moment(new Date(comment.createdAt)).locale("pl").fromNow()}</Text>
     </View>

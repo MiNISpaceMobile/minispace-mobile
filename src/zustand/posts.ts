@@ -33,7 +33,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
     axios({
       url: "/posts",
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
       // TODO: pass filters to params
       params: { page: get().page },
     })

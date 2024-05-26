@@ -1,11 +1,43 @@
-import { Text } from "react-native-paper";
+import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import FriendsStack from "./FriendsStack/FriendsStack";
+import ProfileStack from "./ProfileStack/ProfileStack";
+import SettingsStack from "./SettingsStack/SettingsStack";
+
+const Stack = createStackNavigator();
 
 const Account = () => {
   return (
-    <SafeAreaView>
-      <Text>Account</Text>
-    </SafeAreaView>
+    <Stack.Navigator
+      initialRouteName="Profile"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen
+        name="Profile"
+        children={(props) => (
+          <SafeAreaView>
+            <ProfileStack {...props} />
+          </SafeAreaView>
+        )}
+      />
+      <Stack.Screen
+        name="Friends"
+        children={(props) => (
+          <SafeAreaView>
+            <FriendsStack {...props} />
+          </SafeAreaView>
+        )}
+      />
+      <Stack.Screen
+        name="Settings"
+        children={(props) => (
+          <SafeAreaView>
+            <SettingsStack {...props} />
+          </SafeAreaView>
+        )}
+      />
+    </Stack.Navigator>
   );
 };
 

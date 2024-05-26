@@ -20,7 +20,7 @@ export const usePostDetailsStore = create<PostDetailsState>((set, get) => ({
     axios({
       url: `/posts/${id}`,
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
     })
       .then((response) => {
         set({ postDetails: response.data.postDetails, error: null });
