@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
 
+import BuildInfo from "./BuildInfo/BuildInfo";
+import SettingsStackContent from "./SettingsStackContent/SettingsStackContent";
 import Header from "../../../components/Header/Header";
 import { useNavigationStore } from "../../../zustand/navigation";
 
@@ -25,7 +26,12 @@ const SettingsStack = ({ navigation }: SettingsStackProps) => {
   }, [navigation]);
 
   return (
-    <View>
+    <View
+      style={{
+        flexDirection: "column",
+        minHeight: "100%",
+      }}
+    >
       <Header
         title="Ustawienia"
         iconVariant="left"
@@ -33,7 +39,8 @@ const SettingsStack = ({ navigation }: SettingsStackProps) => {
         navigation={navigation}
         goBack
       />
-      <Text>SettingsStack</Text>
+      <SettingsStackContent />
+      <BuildInfo />
     </View>
   );
 };
