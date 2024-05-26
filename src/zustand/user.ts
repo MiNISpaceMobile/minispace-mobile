@@ -10,6 +10,7 @@ interface UserStore {
   loading: boolean;
   fetchUser: (jwt?: string) => Promise<void>;
   clearUser: () => void;
+  updateUser: (user: IUser) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -60,5 +61,45 @@ export const useUserStore = create<UserStore>((set, get) => ({
   },
   clearUser: () => {
     set({ user: null });
+  },
+  updateUser: async (user: IUser) => {
+    const originalUser = get().user;
+    if (!originalUser) {
+      return;
+    }
+
+    set({ loading: true });
+
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      set({
+        error: new AxiosError("jwt token not in secure store"),
+        loading: false,
+      });
+    }
+
+    await axios({
+      url: "/api/user",
+      method: "put",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
+      data: { emailNotifications: !user.emailNotifications },
+    })
+      .then(async (response) => {
+        set({
+          user: {
+            ...originalUser,
+            emailNotifications: response.data.emailNotifications,
+          },
+          error: null,
+        });
+      })
+      .catch((error: AxiosError) => {
+        set({ user: null, error });
+      })
+      .finally(() => {
+        set({ loading: false });
+      });
   },
 }));
