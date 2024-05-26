@@ -46,7 +46,9 @@ const FriendsStack = ({ route, navigation }: FriendsStackProps) => {
         goBack
       />
       <TabNavigation tab={tab} setTabHandler={setTabHandler} />
-      {tab === "friendsList" && <FriendList />}
+      {tab === "friendsList" && (
+        <FriendList route={route} navigation={navigation} />
+      )}
       {tab === "requestsReceived" && (
         <FriendRequestsReceived route={route} navigation={navigation} />
       )}
