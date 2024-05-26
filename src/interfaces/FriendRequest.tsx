@@ -1,8 +1,7 @@
 import ISimpleUser from "./SimpleUser";
 
-export default interface FriendRequest {
+export default interface IFriendRequest {
   id: string;
   timestamp: Date;
-  target: ISimpleUser;
-  source: ISimpleUser;
+  user: ISimpleUser;
 }
