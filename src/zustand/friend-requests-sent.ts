@@ -11,7 +11,7 @@ interface FriendRequestsSentState {
   page: number;
   isLastPage: boolean;
   refresh: () => void;
-  fetchFriendRequestsReceived: () => void;
+  fetchFriendRequestsSent: () => void;
 }
 
 export const useFriendRequestsSentStore = create<FriendRequestsSentState>(
@@ -24,7 +24,7 @@ export const useFriendRequestsSentStore = create<FriendRequestsSentState>(
     refresh: () => {
       set({ friendRequestsSent: [], page: 0, isLastPage: false });
     },
-    fetchFriendRequestsReceived: async () => {
+    fetchFriendRequestsSent: async () => {
       if (get().isLastPage) {
         return;
       }

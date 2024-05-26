@@ -13,7 +13,7 @@ const FriendRequestsSent = ({ route, navigation }: FriendRequestsSentProps) => {
   );
   const refresh = useFriendRequestsSentStore((state) => state.refresh);
   const fetchNextPage = useFriendRequestsSentStore(
-    (state) => state.fetchFriendRequestsReceived,
+    (state) => state.fetchFriendRequestsSent,
   );
   const loading = useFriendRequestsSentStore((state) => state.loading);
   const error = useFriendRequestsSentStore((state) => state.error);

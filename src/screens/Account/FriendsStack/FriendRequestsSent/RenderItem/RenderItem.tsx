@@ -20,7 +20,7 @@ const RenderItem = ({ route, navigation, item }: RenderItemProps) => {
 
   const refresh = useFriendRequestsSentStore((state) => state.refresh);
   const fetchNextPage = useFriendRequestsSentStore(
-    (state) => state.fetchFriendRequestsReceived,
+    (state) => state.fetchFriendRequestsSent,
   );
 
   const hideDialog = () => {
