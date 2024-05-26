@@ -11,10 +11,11 @@ import { useNavigationStore } from "../../../zustand/navigation";
 export type Tab = "friendsList" | "requestsReceived" | "requestsSent";
 
 interface FriendsStackProps {
+  route: any;
   navigation: any;
 }
 
-const FriendsStack = ({ navigation }: FriendsStackProps) => {
+const FriendsStack = ({ route, navigation }: FriendsStackProps) => {
   const [tab, setTab] = useState<Tab>("friendsList");
 
   const setDisplay = useNavigationStore((state) => state.setDisplay);
@@ -46,8 +47,12 @@ const FriendsStack = ({ navigation }: FriendsStackProps) => {
       />
       <TabNavigation tab={tab} setTabHandler={setTabHandler} />
       {tab === "friendsList" && <FriendList />}
-      {tab === "requestsReceived" && <FriendRequestsReceived />}
-      {tab === "requestsSent" && <FriendRequestsSent />}
+      {tab === "requestsReceived" && (
+        <FriendRequestsReceived route={route} navigation={navigation} />
+      )}
+      {tab === "requestsSent" && (
+        <FriendRequestsSent route={route} navigation={navigation} />
+      )}
     </View>
   );
 };
