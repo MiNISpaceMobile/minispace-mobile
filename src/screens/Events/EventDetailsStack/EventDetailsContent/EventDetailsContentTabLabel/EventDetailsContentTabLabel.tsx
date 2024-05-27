@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Portal, Snackbar, Text } from "react-native-paper";
+
+import { useUserStore } from "../../../../../zustand/user";
 
 interface EventDetailsContentTabLabelProps {
   label: string;
@@ -13,6 +15,26 @@ const EventDetailsContentTabLabel = ({
   selected,
   onPress,
 }: EventDetailsContentTabLabelProps) => {
+  const [dialogVisible, setDialogVisible] = useState(false);
+
+  const showDialog = () => {
+    setDialogVisible(true);
+  };
+
+  const hideDialog = () => {
+    setDialogVisible(false);
+  };
+
+  const user = useUserStore((state) => state.user);
+
+  useEffect(() => {
+    if (dialogVisible) {
+      setTimeout(() => {
+        hideDialog();
+      }, 5000);
+    }
+  }, [dialogVisible]);
+
   return (
     <View
       style={{
@@ -27,11 +49,24 @@ const EventDetailsContentTabLabel = ({
           color: selected ? "black" : "grey",
           fontWeight: selected ? "bold" : "normal",
         }}
-        onPress={onPress}
+        onPress={user ? onPress : showDialog}
         disabled={selected}
       >
         {label}
       </Text>
+      <Portal>
+        <Snackbar
+          wrapperStyle={{ marginBottom: 10 }}
+          visible={dialogVisible}
+          onDismiss={hideDialog}
+          action={{
+            label: "Zamknij",
+            onPress: hideDialog,
+          }}
+        >
+          Tylko dla zalogowanych użytkowników!
+        </Snackbar>
+      </Portal>
     </View>
   );
 };

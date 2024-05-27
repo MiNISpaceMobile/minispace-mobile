@@ -4,10 +4,13 @@ import { Button } from "react-native-paper";
 
 import ReportDialog from "../../../../components/ReportDialog/ReportDialog";
 import { useEventDetailsStore } from "../../../../zustand/event-details";
+import { useUserStore } from "../../../../zustand/user";
 
 // TODO: implement action buttons
 const EventDetailsActions = () => {
   const [reportDialogVisible, setReportDialogVisible] = useState(false);
+
+  const user = useUserStore((state) => state.user);
 
   const loading = useEventDetailsStore((state) => state.loading);
   const eventDetails = useEventDetailsStore((state) => state.eventDetails);
@@ -26,7 +29,7 @@ const EventDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => setReportDialogVisible(true)}
-        disabled={loading}
+        disabled={loading || user === null}
       >
         Zgłoś
       </Button>
@@ -35,7 +38,12 @@ const EventDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => {}}
-        disabled={loading || eventDetails === null || !eventDetails.subscribed}
+        disabled={
+          loading ||
+          eventDetails === null ||
+          !eventDetails.subscribed ||
+          user === null
+        }
       >
         Opuść
       </Button>
@@ -44,7 +52,12 @@ const EventDetailsActions = () => {
         mode="contained"
         style={{ margin: 10 }}
         onPress={() => {}}
-        disabled={loading || eventDetails === null || eventDetails.subscribed}
+        disabled={
+          loading ||
+          eventDetails === null ||
+          eventDetails.subscribed ||
+          user === null
+        }
       >
         Dołącz
       </Button>
