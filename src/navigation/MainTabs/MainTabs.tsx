@@ -6,15 +6,18 @@ import Account from "../../screens/Account/Account";
 import Events from "../../screens/Events/Events";
 import Posts from "../../screens/Posts/Posts";
 import { useNavigationStore } from "../../zustand/navigation";
+import { useUserStore } from "../../zustand/user";
 
 const Tab = createBottomTabNavigator();
 
 const MainTabs = () => {
+  const user = useUserStore((state) => state.user);
+
   const display = useNavigationStore((state) => state.display);
 
   return (
     <Tab.Navigator
-      initialRouteName="posts"
+      initialRouteName={user ? "posts" : "events"}
       screenOptions={{
         headerShown: false,
       }}
@@ -62,22 +65,24 @@ const MainTabs = () => {
         />
       )}
     >
-      <Tab.Screen
-        name="posts"
-        component={Posts}
-        options={{
-          tabBarLabel: "Posty",
-          tabBarIcon: ({ focused, color, size }) => {
-            return (
-              <Icon
-                source={"home" + (focused ? "" : "-outline")}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
+      {user && (
+        <Tab.Screen
+          name="posts"
+          component={Posts}
+          options={{
+            tabBarLabel: "Posty",
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  source={"home" + (focused ? "" : "-outline")}
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
+      )}
       <Tab.Screen
         name="events"
         component={Events}
