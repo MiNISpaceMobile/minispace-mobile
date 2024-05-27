@@ -50,14 +50,22 @@ const AccountDetails = () => {
           )}
         </View>
       </>
-      <View style={{ flexDirection: "column" }}>
-        <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
-          {firstName}
-        </Text>
-        <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
-          {lastName}
-        </Text>
-      </View>
+      {user ? (
+        <View style={{ flexDirection: "column" }}>
+          <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
+            {firstName}
+          </Text>
+          <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
+            {lastName}
+          </Text>
+        </View>
+      ) : (
+        <View>
+          <Text variant="displayMedium" style={{ fontWeight: "bold" }}>
+            Gość
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
