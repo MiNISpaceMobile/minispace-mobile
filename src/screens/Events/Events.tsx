@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import CreateEventStack from "./CreateEventStack/CreateEventStack";
 import EventDetailsStack from "./EventDetailsStack/EventDetailsStack";
 import EventListStack from "./EventListStack/EventListStack";
 import FilterStack from "./FilterStack/FilterStack";
@@ -34,6 +35,14 @@ const Events = () => {
         children={(props) => (
           <SafeAreaView>
             <FilterStack {...props} />
+          </SafeAreaView>
+        )}
+      />
+      <Stack.Screen
+        name="CreateEvent"
+        children={(props) => (
+          <SafeAreaView>
+            <CreateEventStack {...props} />
           </SafeAreaView>
         )}
       />
