@@ -45,9 +45,9 @@ export const useFriendRequestsSentStore = create<FriendRequestsSentState>(
       }
 
       await axios({
-        url: "/api/friend-requests/sent",
+        url: "/friend-requests/sent",
         method: "get",
-        baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
+        baseURL: process.env.EXPO_PUBLIC_API_URL,
         params: { Start: get().page, Limit: 10 },
         headers: { Authorization: "Bearer " + jwt },
       })

@@ -41,10 +41,10 @@ const RenderItem = ({ route, navigation, item }: RenderItemProps) => {
     }
 
     await axios({
-      url: "/api/friend-requests",
+      url: "/friend-requests",
       method: "delete",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
-      params: { target: item.id },
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      params: { id: item.id },
       headers: { Authorization: "Bearer " + jwt },
     })
       .then((response) => {

@@ -47,7 +47,7 @@ export const useCreateEventStore = create<CreateEventState>((set, get) => ({
     }
 
     await axios({
-      url: `/events/create`,
+      url: `/events`,
       method: "post",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: { Authorization: "Bearer " + jwt },
