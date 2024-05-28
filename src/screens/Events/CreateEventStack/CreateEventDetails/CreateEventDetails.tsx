@@ -26,6 +26,7 @@ const CreateEventDetails = () => {
       <EventFee />
       <Divider style={{ marginVertical: 20 }} />
       <EventDescription />
+      <Divider style={{ marginVertical: 20 }} />
     </ScrollView>
   );
 };
