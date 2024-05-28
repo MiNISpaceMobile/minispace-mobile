@@ -51,10 +51,8 @@ const RenderedFlatListItem = ({
       >
         <Animated.View style={{ opacity: animatedOpacity }}>
           <Image
-            source={{
-              uri: post.imageURI,
-            }}
-            placeholder="LJDvf|15iz-O~UvgW.%gDP?Z-pNd"
+            source={{ uri: post.imageURI }}
+            placeholder={{ blurhash: "LJDvf|15iz-O~UvgW.%gDP?Z-pNd" }}
             contentFit="cover"
             transition={1000}
             style={{
