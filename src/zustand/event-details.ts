@@ -20,10 +20,25 @@ export const useEventDetailsStore = create<EventDetailsState>((set, get) => ({
     axios({
       url: `/events/${id}`,
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
     })
-      .then((response) => {
-        set({ eventDetails: response.data.eventDetails, error: null });
+      .then(async (response) => {
+        const data = await response.data;
+        set({
+          eventDetails: {
+            id: data.guid,
+            description: data.description,
+            imageURI: data.pictureUrls.$values[0],
+            eventTitle: data.title,
+            participants: data.participantCount,
+            friends: [], // TODO: add friend list (waiting for backend)
+            startDate: new Date(data.startDate),
+            endDate: new Date(data.endDate),
+            location: data.location,
+            subscribed: false, // TODO: add subscribed (waiting for backend)
+          },
+          error: null,
+        });
       })
       .catch((error: AxiosError) => {
         set({ eventDetails: null, error });
