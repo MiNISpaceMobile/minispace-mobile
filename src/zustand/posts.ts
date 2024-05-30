@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IPost from "../interfaces/Post";
@@ -30,19 +31,45 @@ export const usePostsStore = create<PostsState>((set, get) => ({
 
     set({ loading: true });
 
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      set({
+        posts: [],
+        error: new AxiosError("couldn't resolve jwt token"),
+        page: 0,
+        isLastPage: false,
+        loading: false,
+      });
+      return;
+    }
+
     axios({
-      url: "/posts",
+      url: "/posts/user",
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
-      // TODO: pass filters to params
-      params: { page: get().page },
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
+      params: {
+        Start: get().page,
+        Limit: 10,
+        showAlsoInterested: true, // TODO: change showAlsoInterested to friendRegisteredForEvent (waiting for backend)
+      },
     })
       .then((response) => {
         set((state) => ({
-          posts: state.posts.concat(response.data.posts),
+          posts: state.posts.concat(
+            response.data.results.$values.map((post: any) => {
+              return {
+                id: post.guid,
+                title: post.eventTitle, // TODO: change eventTitle to postTitle (waiting for backend)
+                content: post.content,
+                imageURI: post.pictureUrls[0],
+              };
+            }),
+          ),
           error: null,
           page: state.page + 1,
-          isLastPage: response.data.isLastPage,
+          isLastPage: response.data.paging.last,
         }));
       })
       .catch((error: AxiosError) => {
