@@ -64,7 +64,6 @@ export const useCreatePostStore = create<CreatePostState>((set, get) => ({
   },
   hasErrors: () => {
     const postCreator = get().postCreator;
-    console.log(postCreator);
     return (
       postCreator.eventId === null ||
       postCreator.title.length === 0 ||
