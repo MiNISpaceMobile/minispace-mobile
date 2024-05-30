@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import CreatePostStack from "./CreatePostStack/CreatePostStack";
 import PostDetailsStack from "./PostDetailsStack/PostDetailsStack";
 import PostListStack from "./PostListStack/PostListStack";
 import EventDetailsStack from "../Events/EventDetailsStack/EventDetailsStack";
@@ -34,6 +35,14 @@ const Posts = () => {
         children={(props) => (
           <SafeAreaView>
             <EventDetailsStack {...props} />
+          </SafeAreaView>
+        )}
+      />
+      <Stack.Screen
+        name="CreatePost"
+        children={(props) => (
+          <SafeAreaView>
+            <CreatePostStack {...props} />
           </SafeAreaView>
         )}
       />
