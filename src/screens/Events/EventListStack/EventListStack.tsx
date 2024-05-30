@@ -1,8 +1,9 @@
 import { View } from "react-native";
-import { FAB, Portal } from "react-native-paper";
+import { FAB } from "react-native-paper";
 
 import EventList from "./EventList/EventList";
 import Header from "../../../components/Header/Header";
+import { useEventsStore } from "../../../zustand/events";
 
 interface EventListStackProps {
   route: any;
@@ -10,6 +11,8 @@ interface EventListStackProps {
 }
 
 const EventListStack = ({ route, navigation }: EventListStackProps) => {
+  const loading = useEventsStore((state) => state.loading);
+
   return (
     <View>
       <Header
@@ -25,7 +28,7 @@ const EventListStack = ({ route, navigation }: EventListStackProps) => {
       <View
         style={{
           position: "absolute",
-          bottom: 140,
+          bottom: loading ? -570 : 140,
           minWidth: "100%",
           alignItems: "center",
         }}
