@@ -71,7 +71,7 @@ const EventDetailsContent = ({
             if (!eventDetailsLoading) {
               setDisplay("flex");
               refresh();
-              fetchPosts(filters);
+              fetchPosts({ ...filters, eventId, eventTitle });
               setFilters({ ...filters, eventId, eventTitle });
               navigation.goBack();
               navigation.navigate("PostList");
