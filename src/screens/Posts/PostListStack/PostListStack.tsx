@@ -3,7 +3,8 @@ import { FAB } from "react-native-paper";
 
 import PostList from "./PostList/PostList";
 import Header from "../../../components/Header/Header";
-import { usePostsStore } from "../../../zustand/posts";
+import { useOrganizedEventsStore } from "../../../zustand/organized-events";
+import { useUserStore } from "../../../zustand/user";
 
 interface PostListStackProps {
   route: any;
@@ -11,26 +12,29 @@ interface PostListStackProps {
 }
 
 const PostListStack = ({ route, navigation }: PostListStackProps) => {
-  const loading = usePostsStore((state) => state.loading);
+  const user = useUserStore((state) => state.user);
 
   return (
     <View>
       <Header title="Posty" />
       <PostList route={route} navigation={navigation} />
-      <View
-        style={{
-          position: "absolute",
-          bottom: loading ? -570 : 140,
-          minWidth: "100%",
-          alignItems: "center",
-        }}
-      >
-        <FAB
-          icon="plus"
-          label="Nowy post"
-          onPress={() => navigation.navigate("CreatePost")}
-        />
-      </View>
+      {user?.isOrganizer && (
+        <View
+          style={{
+            position: "absolute",
+            minHeight: "100%",
+            top: 680,
+            minWidth: "100%",
+            alignItems: "center",
+          }}
+        >
+          <FAB
+            icon="plus"
+            label="Nowy post"
+            onPress={() => navigation.navigate("CreatePost")}
+          />
+        </View>
+      )}
     </View>
   );
 };

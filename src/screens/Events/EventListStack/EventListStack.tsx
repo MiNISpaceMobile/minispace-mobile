@@ -3,7 +3,7 @@ import { FAB } from "react-native-paper";
 
 import EventList from "./EventList/EventList";
 import Header from "../../../components/Header/Header";
-import { useEventsStore } from "../../../zustand/events";
+import { useUserStore } from "../../../zustand/user";
 
 interface EventListStackProps {
   route: any;
@@ -11,7 +11,7 @@ interface EventListStackProps {
 }
 
 const EventListStack = ({ route, navigation }: EventListStackProps) => {
-  const loading = useEventsStore((state) => state.loading);
+  const user = useUserStore((state) => state.user);
 
   return (
     <View>
@@ -25,20 +25,23 @@ const EventListStack = ({ route, navigation }: EventListStackProps) => {
       />
       <EventList route={route} navigation={navigation} />
 
-      <View
-        style={{
-          position: "absolute",
-          bottom: loading ? -570 : 140,
-          minWidth: "100%",
-          alignItems: "center",
-        }}
-      >
-        <FAB
-          icon="plus"
-          label="Nowe wydarzenie"
-          onPress={() => navigation.navigate("CreateEvent")}
-        />
-      </View>
+      {user?.isOrganizer && (
+        <View
+          style={{
+            position: "absolute",
+            minHeight: "100%",
+            top: 680,
+            minWidth: "100%",
+            alignItems: "center",
+          }}
+        >
+          <FAB
+            icon="plus"
+            label="Nowe wydarzenie"
+            onPress={() => navigation.navigate("CreateEvent")}
+          />
+        </View>
+      )}
     </View>
   );
 };
