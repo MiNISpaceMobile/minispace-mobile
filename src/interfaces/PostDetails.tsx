@@ -7,6 +7,4 @@ export default interface IPostDetails {
   content: string;
   imageURI: string;
   eventTitle: string;
-  participants: number;
-  friends: IUser[];
 }
