@@ -44,8 +44,10 @@ export const usePostsStore = create<PostsState>((set, get) => ({
       return;
     }
 
+    const listEventPosts = filters.eventId !== null;
+
     axios({
-      url: "/posts/user",
+      url: listEventPosts ? `/events/${filters.eventId}/posts` : "/posts/user",
       method: "get",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: { Authorization: "Bearer " + jwt },
