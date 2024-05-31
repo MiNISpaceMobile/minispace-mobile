@@ -2,14 +2,15 @@ import moment from "moment";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
-import IComment from "../../../../interfaces/Comment";
+import ISimpleUser from "../../../../interfaces/SimpleUser";
 import ProfilePicture from "../../../ProfilePicture/ProfilePicture";
 
 interface CommentsItemHeaderProps {
-  comment: IComment;
+  owner: ISimpleUser;
+  createdAt: Date;
 }
 
-const CommentsItemHeader = ({ comment }: CommentsItemHeaderProps) => {
+const CommentsItemHeader = ({ owner, createdAt }: CommentsItemHeaderProps) => {
   return (
     <View
       style={{
@@ -21,13 +22,13 @@ const CommentsItemHeader = ({ comment }: CommentsItemHeaderProps) => {
     >
       <ProfilePicture
         size={32}
-        userFirstName={comment.owner.firstName}
-        userLastName={comment.owner.lastName}
+        userFirstName={owner.firstName}
+        userLastName={owner.lastName}
       />
       <Text variant="titleSmall" style={{ margin: 10 }}>
-        {`${comment.owner.firstName} ${comment.owner.lastName}`}
+        {`${owner.firstName} ${owner.lastName}`}
       </Text>
-      <Text>{moment(new Date(comment.createdAt)).locale("pl").fromNow()}</Text>
+      <Text>{moment(new Date(createdAt)).locale("pl").fromNow()}</Text>
     </View>
   );
 };
