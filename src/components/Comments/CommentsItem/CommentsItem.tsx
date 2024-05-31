@@ -10,16 +10,21 @@ import IComment from "../../../interfaces/Comment";
 
 interface CommentsItemProps {
   comment: IComment;
+  postId: string;
 }
 
-const CommentsItem = ({ comment }: CommentsItemProps) => {
+const CommentsItem = ({ comment, postId }: CommentsItemProps) => {
   const theme = useTheme();
 
   return (
     <View style={{ padding: 10, paddingBottom: 0 }}>
       <CommentsItemHeader owner={comment.owner} createdAt={comment.createdAt} />
       <CommentsItemContent content={comment.content} />
-      <CommentsItemActions likes={comment.likes} />
+      <CommentsItemActions
+        likes={comment.likes}
+        postId={postId}
+        commentId={comment.id}
+      />
       <View
         style={{
           borderLeftWidth: comment.replies.length > 0 ? 1 : 0,

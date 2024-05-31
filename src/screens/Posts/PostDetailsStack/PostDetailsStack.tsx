@@ -99,6 +99,7 @@ const PostDetailsStack = ({ route, navigation }: PostDetailsStackProps) => {
         comments={comments}
         error={postCommentsError}
         loading={postCommentsLoading}
+        postId={postId}
       />
     </ScrollView>
   );

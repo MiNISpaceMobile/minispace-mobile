@@ -19,7 +19,7 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
   error: null,
   loading: false,
   fetchComments: async (id: string) => {
-    set({ loading: true, comments: [] });
+    set({ loading: true });
 
     const jwt = await SecureStore.getItemAsync("jwt");
 
