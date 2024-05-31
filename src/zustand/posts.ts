@@ -52,7 +52,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
       params: {
         Start: get().page,
         Limit: 10,
-        showAlsoInterested: true, // TODO: change showAlsoInterested to friendRegisteredForEvent (waiting for backend)
+        showFriendsPosts: filters.friendRegisteredForEvent,
       },
     })
       .then((response) => {
@@ -61,7 +61,7 @@ export const usePostsStore = create<PostsState>((set, get) => ({
             response.data.results.$values.map((post: any) => {
               return {
                 id: post.guid,
-                title: post.eventTitle, // TODO: change eventTitle to postTitle (waiting for backend)
+                title: post.title,
                 content: post.content,
                 imageURI: post.pictureUrls[0],
               };
