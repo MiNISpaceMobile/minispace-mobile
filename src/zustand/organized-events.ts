@@ -7,7 +7,6 @@ interface OrganizedEventState {
   events: IOrganizedEvent[];
   error: AxiosError | null;
   loading: boolean;
-  page: number;
   isLastPage: boolean;
   refresh: () => void;
   fetchEvents: () => void;
@@ -18,10 +17,9 @@ export const useOrganizedEventsStore = create<OrganizedEventState>(
     events: [] as IOrganizedEvent[],
     error: null,
     loading: false,
-    page: 0,
     isLastPage: false,
     refresh: () => {
-      set({ events: [], page: 0, isLastPage: false });
+      set({ events: [], isLastPage: false });
     },
     fetchEvents: async () => {
       if (get().isLastPage) {
@@ -35,28 +33,25 @@ export const useOrganizedEventsStore = create<OrganizedEventState>(
         method: "get",
         baseURL: process.env.EXPO_PUBLIC_API_URL,
         params: {
-          Start: get().page,
+          Start: 0,
           Limit: 100,
-          organizedByMe: true,
+          OrganizedByMe: true,
         },
       })
         .then((response) => {
           set((state) => ({
-            events: state.events.concat(
-              response.data.results.$values.map((eventItem: any) => {
-                return {
-                  _id: eventItem.guid,
-                  value: eventItem.title,
-                };
-              }),
-            ),
+            events: response.data.results.$values.map((eventItem: any) => {
+              return {
+                _id: eventItem.guid,
+                value: eventItem.title,
+              };
+            }),
             error: null,
-            page: state.page + 1,
             isLastPage: response.data.paging.last,
           }));
         })
         .catch((error: AxiosError) => {
-          set({ events: [], error, page: 0, isLastPage: false });
+          set({ events: [], error, isLastPage: false });
         })
         .finally(() => {
           set({ loading: false });
