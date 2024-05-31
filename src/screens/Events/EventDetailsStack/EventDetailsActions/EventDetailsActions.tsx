@@ -1,3 +1,5 @@
+import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
@@ -6,7 +8,6 @@ import ReportDialog from "../../../../components/ReportDialog/ReportDialog";
 import { useEventDetailsStore } from "../../../../zustand/event-details";
 import { useUserStore } from "../../../../zustand/user";
 
-// TODO: implement action buttons
 const EventDetailsActions = () => {
   const [reportDialogVisible, setReportDialogVisible] = useState(false);
 
@@ -14,6 +15,50 @@ const EventDetailsActions = () => {
 
   const loading = useEventDetailsStore((state) => state.loading);
   const eventDetails = useEventDetailsStore((state) => state.eventDetails);
+  const fetchEventDetails = useEventDetailsStore(
+    (state) => state.fetchEventDetails,
+  );
+
+  const joinEvent = async () => {
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      return;
+    }
+
+    await axios({
+      url: `/events/${eventDetails?.id}/participants`,
+      method: "post",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
+      params: { id: eventDetails?.id },
+    })
+      .then(() => {
+        fetchEventDetails(eventDetails!.id);
+      })
+      .catch(() => {})
+      .finally(() => {});
+  };
+
+  const leaveEvent = async () => {
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      return;
+    }
+
+    await axios({
+      url: `/events/${eventDetails?.id}/participants`,
+      method: "delete",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
+    })
+      .then(() => {
+        fetchEventDetails(eventDetails!.id);
+      })
+      .catch(() => {})
+      .finally(() => {});
+  };
 
   return (
     <View
@@ -37,7 +82,7 @@ const EventDetailsActions = () => {
         icon="book-cancel"
         mode="contained"
         style={{ margin: 10 }}
-        onPress={() => {}}
+        onPress={leaveEvent}
         disabled={
           loading ||
           eventDetails === null ||
@@ -51,7 +96,7 @@ const EventDetailsActions = () => {
         icon="book"
         mode="contained"
         style={{ margin: 10 }}
-        onPress={() => {}}
+        onPress={joinEvent}
         disabled={
           loading ||
           eventDetails === null ||
