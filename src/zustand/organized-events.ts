@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IOrganizedEvent from "../interfaces/OrganizedEvent";
@@ -7,7 +8,6 @@ interface OrganizedEventState {
   events: IOrganizedEvent[];
   error: AxiosError | null;
   loading: boolean;
-  isLastPage: boolean;
   refresh: () => void;
   fetchEvents: () => void;
 }
@@ -17,21 +17,26 @@ export const useOrganizedEventsStore = create<OrganizedEventState>(
     events: [] as IOrganizedEvent[],
     error: null,
     loading: false,
-    isLastPage: false,
     refresh: () => {
-      set({ events: [], isLastPage: false });
+      set({ events: [] });
     },
     fetchEvents: async () => {
-      if (get().isLastPage) {
-        return;
-      }
-
       set({ loading: true });
+
+      const jwt = await SecureStore.getItemAsync("jwt");
+
+      if (!jwt) {
+        set({
+          error: new AxiosError("jwt token not in secure store"),
+          loading: false,
+        });
+      }
 
       axios({
         url: "/events",
         method: "get",
         baseURL: process.env.EXPO_PUBLIC_API_URL,
+        headers: { Authorization: "Bearer " + jwt },
         params: {
           Start: 0,
           Limit: 100,
@@ -47,11 +52,10 @@ export const useOrganizedEventsStore = create<OrganizedEventState>(
               };
             }),
             error: null,
-            isLastPage: response.data.paging.last,
           }));
         })
         .catch((error: AxiosError) => {
-          set({ events: [], error, isLastPage: false });
+          set({ events: [], error });
         })
         .finally(() => {
           set({ loading: false });
