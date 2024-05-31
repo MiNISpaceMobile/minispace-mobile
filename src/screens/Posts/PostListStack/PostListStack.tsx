@@ -13,6 +13,7 @@ interface PostListStackProps {
 
 const PostListStack = ({ route, navigation }: PostListStackProps) => {
   const user = useUserStore((state) => state.user);
+  const fetchEvents = useOrganizedEventsStore((state) => state.fetchEvents);
 
   return (
     <View>
@@ -31,7 +32,10 @@ const PostListStack = ({ route, navigation }: PostListStackProps) => {
           <FAB
             icon="plus"
             label="Nowy post"
-            onPress={() => navigation.navigate("CreatePost")}
+            onPress={() => {
+              fetchEvents();
+              navigation.navigate("CreatePost");
+            }}
           />
         </View>
       )}
