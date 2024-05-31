@@ -11,9 +11,9 @@ interface EventFiltersState {
 const defaultFilters: EventFilters = {
   eventTitle: null,
   organizer: null,
-  cost: ["free"],
-  participants: ["0-50", "50-100", "100+"],
-  timeframe: ["current", "future"],
+  cost: ["Free"],
+  participants: ["To50", "From50To100", "Above100"],
+  timeframe: ["Current", "Future"],
   hasToBeMyEvent: false,
   needAvailableSpace: true,
 };

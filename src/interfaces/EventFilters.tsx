@@ -1,6 +1,6 @@
-export type CostType = "free" | "paid";
-export type ParticipantsType = "0-50" | "50-100" | "100+";
-export type TimeFrameType = "past" | "current" | "future";
+export type CostType = "Free" | "Paid";
+export type ParticipantsType = "To50" | "From50To100" | "Above100";
+export type TimeFrameType = "Past" | "Current" | "Future";
 
 export default interface IEventFilters {
   eventTitle: string | null;

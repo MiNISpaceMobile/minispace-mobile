@@ -17,19 +17,19 @@ const TimeFrameSegmentedButtons = () => {
         }}
         buttons={[
           {
-            value: "past",
+            value: "Past",
             label: "minione",
             style: { flex: 1 },
             showSelectedCheck: true,
           },
           {
-            value: "current",
+            value: "Current",
             label: "trwające",
             style: { flex: 1 },
             showSelectedCheck: true,
           },
           {
-            value: "future",
+            value: "Future",
             label: "zaplanowane",
             style: { flex: 2 },
             showSelectedCheck: true,
