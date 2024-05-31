@@ -105,7 +105,12 @@ const RenderedFlatListItem = ({
                       {formatDateRange(event.startDate, event.endDate)}
                     </Text>
                     <Text variant="titleSmall">
-                      {`${event.friendParticipants} znajomych ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants === 0 &&
+                        `${event.participants} osób ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants === 1 &&
+                        `${event.participants} osoba ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants > 1 &&
+                        `${event.participants} osoby ${event.active ? "weźmie" : "wzięło"} udział`}
                     </Text>
                   </View>
                 </View>

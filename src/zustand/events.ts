@@ -37,13 +37,12 @@ export const useEventsStore = create<EventState>((set, get) => ({
       params: {
         Start: get().page,
         Limit: 10,
-        evNameFilter: filters.eventTitle,
-        orgNameFilter: filters.organizer,
-        priceFilter: "Any", // TODO: add priceFilter (waiting for backend)
-        minCapacityFilter: 0, // TODO: add capacity (waiting for backend)
-        maxCapacityFilter: 1000,
-        startTimeFilter: "Any", // TODO: add startTimeFilter (waiting for backend)
-        onlyAvailablePlace: filters.needAvailableSpace,
+        EventName: filters.eventTitle,
+        OrganizerName: filters.organizer,
+        Participants: filters.participants,
+        Price: filters.cost,
+        Time: filters.timeframe,
+        OnlyAvailablePlace: filters.needAvailableSpace,
       },
     })
       .then((response) => {
@@ -59,7 +58,7 @@ export const useEventsStore = create<EventState>((set, get) => ({
                 imageURI: eventItem.pictureUrls.$values[0],
                 startDate: new Date(eventItem.startDate),
                 endDate: new Date(eventItem.endDate),
-                friendParticipants: 0, // TODO: add friendParticipants (waiting for backend)
+                participants: eventItem.participantCount,
                 rating: eventItem.rating,
                 availableSpace: eventItem.availablePlaces > 0,
                 lowAvailableSpace:
