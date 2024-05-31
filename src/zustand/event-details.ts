@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IEventDetails from "../interfaces/EventDetails";
@@ -17,10 +18,13 @@ export const useEventDetailsStore = create<EventDetailsState>((set, get) => ({
   fetchEventDetails: async (id: string) => {
     set({ loading: true, eventDetails: null });
 
+    const jwt = await SecureStore.getItemAsync("jwt");
+
     axios({
       url: `/events/${id}`,
       method: "get",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
     })
       .then(async (response) => {
         const data = await response.data;
