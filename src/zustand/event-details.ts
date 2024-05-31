@@ -31,11 +31,19 @@ export const useEventDetailsStore = create<EventDetailsState>((set, get) => ({
             imageURI: data.pictureUrls.$values[0],
             eventTitle: data.title,
             participants: data.participantCount,
-            friends: [], // TODO: add friend list (waiting for backend)
+            friends: data.friends.$values.map((friend: any) => {
+              return {
+                id: friend.guid,
+                firstName: friend.firstName,
+                lastName: friend.lastName,
+                description: friend.description,
+                profilePicture: friend.profilePicture,
+              };
+            }),
             startDate: new Date(data.startDate),
             endDate: new Date(data.endDate),
             location: data.location,
-            subscribed: false, // TODO: add subscribed (waiting for backend)
+            subscribed: data.isParticipant,
           },
           error: null,
         });
