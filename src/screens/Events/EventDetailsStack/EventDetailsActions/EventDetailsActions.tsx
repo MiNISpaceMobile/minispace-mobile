@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { View } from "react-native";
@@ -31,7 +31,6 @@ const EventDetailsActions = () => {
       method: "post",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: { Authorization: "Bearer " + jwt },
-      params: { id: eventDetails?.id },
     })
       .then(() => {
         fetchEventDetails(eventDetails!.id);
