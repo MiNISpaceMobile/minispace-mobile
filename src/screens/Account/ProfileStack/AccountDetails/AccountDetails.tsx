@@ -1,3 +1,7 @@
+import axios, { AxiosError } from "axios";
+import * as ImagePicker from "expo-image-picker";
+import * as SecureStore from "expo-secure-store";
+import FormData from "form-data";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Icon, Text, TouchableRipple } from "react-native-paper";
@@ -10,6 +14,7 @@ const AccountDetails = () => {
   const [lastName, setLastName] = useState<string | null>(null);
 
   const user = useUserStore((state) => state.user);
+  const fetchUser = useUserStore((state) => state.fetchUser);
 
   useEffect(() => {
     if (user) {
@@ -17,6 +22,66 @@ const AccountDetails = () => {
       setLastName(user.lastName);
     }
   }, [user]);
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (result.canceled) {
+      return;
+    }
+
+    const image = result.assets[0];
+
+    const mimeType = image.mimeType;
+    const filename = image.fileName;
+    const uri = image.uri;
+
+    if (!mimeType || !filename || !uri) {
+      return;
+    }
+
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("picture", {
+      uri,
+      type: mimeType,
+      name: filename,
+    });
+
+    let error: AxiosError | null = null;
+
+    await axios({
+      url: "/users/user/picture",
+      method: "post",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + jwt,
+      },
+    })
+      .then((response) => {})
+      .catch((_error: AxiosError) => {
+        error = _error;
+      })
+      .finally(() => {});
+
+    if (error) {
+      return;
+    }
+
+    await fetchUser(jwt);
+  };
 
   return (
     <View
@@ -41,7 +106,7 @@ const AccountDetails = () => {
                 elevation: 2,
                 padding: 4,
               }}
-              onPress={() => {}} // TODO: implement profile picture change
+              onPress={pickImage}
               disabled={user === null}
               borderless
             >
