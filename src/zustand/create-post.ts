@@ -3,6 +3,7 @@ import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IPostCreator from "../interfaces/PostCreator";
+import postPicture from "../lib/postPicture";
 
 interface CreatePostState {
   postCreator: IPostCreator;
@@ -18,6 +19,7 @@ const defaultPostCreator: IPostCreator = {
   eventId: null,
   title: "",
   description: "",
+  picture: null,
 };
 
 export const useCreatePostStore = create<CreatePostState>((set, get) => ({
@@ -52,7 +54,12 @@ export const useCreatePostStore = create<CreatePostState>((set, get) => ({
         title: postCreator.title,
       },
     })
-      .then((response) => {
+      .then(async (response) => {
+        const picture = get().postCreator.picture;
+        if (picture) {
+          await postPicture(picture, "posts", response.data.guid);
+        }
+
         set({ error: null, postCreator: defaultPostCreator });
       })
       .catch((error: AxiosError) => {
@@ -77,6 +84,7 @@ export const useCreatePostStore = create<CreatePostState>((set, get) => ({
         eventId: get().postCreator.eventId,
         title: "",
         description: "",
+        picture: null,
       },
     });
   },

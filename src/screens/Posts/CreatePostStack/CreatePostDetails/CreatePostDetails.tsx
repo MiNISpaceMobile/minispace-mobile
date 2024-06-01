@@ -3,6 +3,7 @@ import { Divider } from "react-native-paper";
 
 import PostDescription from "./PostDescription/PostDescription";
 import PostEventSelect from "./PostEventSelect/PostEventSelect";
+import PostImage from "./PostImage/PostImage";
 import PostName from "./PostName/PostName";
 
 const CreatePostDetails = () => {
@@ -15,6 +16,8 @@ const CreatePostDetails = () => {
       <PostEventSelect />
       <Divider style={{ marginVertical: 20 }} />
       <PostName />
+      <Divider style={{ marginVertical: 20 }} />
+      <PostImage />
       <Divider style={{ marginVertical: 20 }} />
       <PostDescription />
       <Divider style={{ marginVertical: 20 }} />
