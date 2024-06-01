@@ -7,6 +7,8 @@ export default interface IComment {
   content: string;
   createdAt: Date;
   likes: number;
+  dislikes: number;
   responsesCount: number;
   replies: ICommentReply[];
+  userReactionIsDislike: boolean | null;
 }

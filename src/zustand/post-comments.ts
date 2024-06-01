@@ -55,10 +55,11 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
             },
             content: comment.content,
             createdAt: new Date(comment.creationDate),
-            likes: 0, // TODO: fetch likes
+            likes: comment.likeCount,
+            dislikes: comment.dislikeCount,
             responsesCount: comment.responsesCount,
             replies: [] as ICommentReply[],
-            // replies: await getCommentReplies(comment.guid),
+            userReactionIsDislike: comment.userReactionIsDislike,
           };
         }) as IComment[];
 

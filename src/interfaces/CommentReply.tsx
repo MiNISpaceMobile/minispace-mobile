@@ -7,4 +7,6 @@ export default interface ICommentReply {
   content: string;
   createdAt: Date;
   likes: number;
+  dislikes: number;
+  userReactionIsDislike: boolean | null;
 }

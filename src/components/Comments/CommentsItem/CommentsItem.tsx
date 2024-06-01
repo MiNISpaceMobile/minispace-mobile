@@ -22,7 +22,9 @@ const CommentsItem = ({ comment, postId }: CommentsItemProps) => {
       <CommentsItemContent content={comment.content} />
       <CommentsItemActions
         likes={comment.likes}
+        dislikes={comment.dislikes}
         postId={postId}
+        userReactionIsDislike={comment.userReactionIsDislike}
         commentId={comment.id}
       />
       <View
@@ -33,7 +35,11 @@ const CommentsItem = ({ comment, postId }: CommentsItemProps) => {
       >
         <View style={{ marginLeft: 15 }}>
           {comment.replies.map((comment) => (
-            <CommentsItemReply comment={comment} key={comment.id} />
+            <CommentsItemReply
+              comment={comment}
+              key={comment.id}
+              postId={postId}
+            />
           ))}
         </View>
       </View>

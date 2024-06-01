@@ -3,22 +3,27 @@ import { View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 
 import createComment from "../../../../lib/createComment";
+import reactToComment from "../../../../lib/reactToComment";
 import { usePostCommentsStore } from "../../../../zustand/post-comments";
 import CommentDialog from "../../../CommentDialog/CommentDialog";
 import ReportDialog from "../../../ReportDialog/ReportDialog";
 
 interface CommentsItemActionsProps {
   likes: number;
+  dislikes: number;
   isReply?: boolean;
   postId: string;
   commentId: string;
+  userReactionIsDislike: boolean | null;
 }
 
 const CommentsItemActions = ({
   likes,
+  dislikes,
   isReply,
   postId,
   commentId,
+  userReactionIsDislike,
 }: CommentsItemActionsProps) => {
   const [reportDialogVisible, setReportDialogVisible] = useState(false);
   const [commentDialogVisible, setCommentDialogVisible] = useState(false);
@@ -45,8 +50,31 @@ const CommentsItemActions = ({
           onPress={() => setCommentDialogVisible(true)}
         />
       )}
-      <IconButton icon="thumb-up-outline" size={24} onPress={() => {}} />
-      <Text variant="titleMedium">{likes}</Text>
+      <IconButton
+        icon={userReactionIsDislike === false ? "thumb-up" : "thumb-up-outline"}
+        size={24}
+        onPress={async () => {
+          await reactToComment(
+            userReactionIsDislike === false ? null : false,
+            commentId,
+          );
+          fetchComments(postId);
+        }}
+      />
+      <Text variant="titleMedium">{likes - dislikes}</Text>
+      <IconButton
+        icon={
+          userReactionIsDislike === true ? "thumb-down" : "thumb-down-outline"
+        }
+        size={24}
+        onPress={async () => {
+          await reactToComment(
+            userReactionIsDislike === true ? null : true,
+            commentId,
+          );
+          fetchComments(postId);
+        }}
+      />
       <ReportDialog
         dialogVisible={reportDialogVisible}
         hideDialog={() => setReportDialogVisible(false)}

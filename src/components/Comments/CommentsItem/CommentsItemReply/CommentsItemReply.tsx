@@ -8,14 +8,22 @@ import CommentsItemHeader from "../CommentsItemHeader/CommentsItemHeader";
 
 interface CommentsItemReplyProps {
   comment: ICommentReply;
+  postId: string;
 }
 
-const CommentsItemReply = ({ comment }: CommentsItemReplyProps) => {
+const CommentsItemReply = ({ comment, postId }: CommentsItemReplyProps) => {
   return (
     <View style={{ padding: 10, paddingBottom: 0 }}>
       <CommentsItemHeader owner={comment.owner} createdAt={comment.createdAt} />
       <CommentsItemContent content={comment.content} />
-      <CommentsItemActions likes={comment.likes} isReply />
+      <CommentsItemActions
+        likes={comment.likes}
+        dislikes={comment.dislikes}
+        postId={postId}
+        commentId={comment.id}
+        userReactionIsDislike={comment.userReactionIsDislike}
+        isReply
+      />
     </View>
   );
 };
