@@ -75,10 +75,8 @@ const RenderedFlatListItem = ({
         >
           <Animated.View style={{ opacity: animatedOpacity }}>
             <Image
-              source={{
-                uri: event.imageURI,
-              }}
-              placeholder="LJDvf|15iz-O~UvgW.%gDP?Z-pNd"
+              source={{ uri: event.imageURI }}
+              placeholder={{ blurhash: "LJDvf|15iz-O~UvgW.%gDP?Z-pNd" }}
               contentFit="cover"
               transition={1000}
               style={{
@@ -107,7 +105,12 @@ const RenderedFlatListItem = ({
                       {formatDateRange(event.startDate, event.endDate)}
                     </Text>
                     <Text variant="titleSmall">
-                      {`${event.friendParticipants} znajomych ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants === 0 &&
+                        `${event.participants} osób ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants === 1 &&
+                        `${event.participants} osoba ${event.active ? "weźmie" : "wzięło"} udział`}
+                      {event.participants > 1 &&
+                        `${event.participants} osoby ${event.active ? "weźmie" : "wzięło"} udział`}
                     </Text>
                   </View>
                 </View>

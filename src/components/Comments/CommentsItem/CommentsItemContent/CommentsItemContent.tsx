@@ -1,13 +1,11 @@
 import { Text } from "react-native-paper";
 
-import IComment from "../../../../interfaces/Comment";
-
 interface CommentsItemContentProps {
-  comment: IComment;
+  content: string;
 }
 
-const CommentsItemContent = ({ comment }: CommentsItemContentProps) => {
-  return <Text>{comment.content}</Text>;
+const CommentsItemContent = ({ content }: CommentsItemContentProps) => {
+  return <Text>{content}</Text>;
 };
 
 export default CommentsItemContent;

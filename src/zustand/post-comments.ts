@@ -1,13 +1,17 @@
 import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IComment from "../interfaces/Comment";
+import ICommentReply from "../interfaces/CommentReply";
+import getCommentReplies from "../lib/getCommentReplies";
 
 interface PostCommentsState {
   comments: IComment[];
   error: AxiosError | null;
   loading: boolean;
   fetchComments: (id: string) => void;
+  setError: (error: AxiosError | null) => void;
 }
 
 export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
@@ -15,15 +19,61 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
   error: null,
   loading: false,
   fetchComments: async (id: string) => {
-    set({ loading: true, comments: [] });
+    set({ loading: true });
+
+    const jwt = await SecureStore.getItemAsync("jwt");
+
+    if (!jwt) {
+      set({
+        comments: [],
+        error: new AxiosError("couldn't resolve jwt token"),
+        loading: false,
+      });
+      return;
+    }
 
     axios({
-      url: `/comments/by-post/${id}`,
+      url: `/posts/${id}/comments`,
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
+      params: {
+        Start: 0,
+        Limit: 10000,
+      },
     })
-      .then((response) => {
-        set({ comments: response.data.comments, error: null });
+      .then(async (response) => {
+        let comments = response.data.results.$values.map((comment: any) => {
+          return {
+            id: comment.guid,
+            owner: {
+              id: comment.author.guid,
+              firstName: comment.author.firstName,
+              lastName: comment.author.lastName,
+              description: comment.author.description,
+              profilePicture: comment.author.profilePictureUrl,
+            },
+            content: comment.content,
+            createdAt: new Date(comment.creationDate),
+            likes: comment.likeCount,
+            dislikes: comment.dislikeCount,
+            responsesCount: comment.responsesCount,
+            replies: [] as ICommentReply[],
+            userReactionIsDislike: comment.userReactionIsDislike,
+          };
+        }) as IComment[];
+
+        comments = await Promise.all(
+          comments.map(async (comment) => {
+            comment.replies = await getCommentReplies(comment.id);
+            return comment;
+          }),
+        );
+
+        set({
+          comments,
+          error: null,
+        });
       })
       .catch((error: AxiosError) => {
         set({ comments: [], error });
@@ -31,5 +81,8 @@ export const usePostCommentsStore = create<PostCommentsState>((set, get) => ({
       .finally(() => {
         set({ loading: false });
       });
+  },
+  setError: (error: AxiosError | null) => {
+    set({ comments: [], error, loading: false });
   },
 }));

@@ -9,5 +9,5 @@ export default interface IEventCreator {
   location: string;
   capacity: number;
   fee: number;
-  picture: ImagePicker.ImagePickerResult | null;
+  picture: ImagePicker.ImagePickerAsset | null;
 }

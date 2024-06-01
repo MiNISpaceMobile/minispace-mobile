@@ -4,6 +4,7 @@ import moment from "moment";
 import { create } from "zustand";
 
 import IEventCreator from "../interfaces/EventCreator";
+import postPicture from "../lib/postPicture";
 
 interface CreateEventState {
   eventCreator: IEventCreator;
@@ -47,7 +48,7 @@ export const useCreateEventStore = create<CreateEventState>((set, get) => ({
     }
 
     await axios({
-      url: `/events/create`,
+      url: `/events`,
       method: "post",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: { Authorization: "Bearer " + jwt },
@@ -57,7 +58,12 @@ export const useCreateEventStore = create<CreateEventState>((set, get) => ({
         publicationDate: get().eventCreator.startDate, // currenlty publicationDate is always equal startDate
       },
     })
-      .then((response) => {
+      .then(async (response) => {
+        const picture = get().eventCreator.picture;
+        if (picture) {
+          await postPicture(picture, "events", response.data.guid);
+        }
+
         set({ error: null, eventCreator: defaultEventCreator });
       })
       .catch((error: AxiosError) => {

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 
 import IEventDetails from "../interfaces/EventDetails";
@@ -17,13 +18,39 @@ export const useEventDetailsStore = create<EventDetailsState>((set, get) => ({
   fetchEventDetails: async (id: string) => {
     set({ loading: true, eventDetails: null });
 
+    const jwt = await SecureStore.getItemAsync("jwt");
+
     axios({
       url: `/events/${id}`,
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      headers: { Authorization: "Bearer " + jwt },
     })
-      .then((response) => {
-        set({ eventDetails: response.data.eventDetails, error: null });
+      .then(async (response) => {
+        const data = await response.data;
+        set({
+          eventDetails: {
+            id: data.guid,
+            description: data.description,
+            imageURI: data.pictureUrls.$values[0],
+            eventTitle: data.title,
+            participants: data.participantCount,
+            friends: data.friends.$values.map((friend: any) => {
+              return {
+                id: friend.guid,
+                firstName: friend.firstName,
+                lastName: friend.lastName,
+                description: friend.description,
+                profilePicture: friend.profilePicture,
+              };
+            }),
+            startDate: new Date(data.startDate),
+            endDate: new Date(data.endDate),
+            location: data.location,
+            subscribed: data.isParticipant,
+          },
+          error: null,
+        });
       })
       .catch((error: AxiosError) => {
         set({ eventDetails: null, error });

@@ -33,9 +33,17 @@ export const useEventsStore = create<EventState>((set, get) => ({
     axios({
       url: "/events",
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
-      // TODO: pass filters to params
-      params: { page: get().page },
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
+      params: {
+        Start: get().page,
+        Limit: 10,
+        EventName: filters.eventTitle,
+        OrganizerName: filters.organizer,
+        Participants: filters.participants,
+        Price: filters.cost,
+        Time: filters.timeframe,
+        OnlyAvailablePlace: filters.needAvailableSpace,
+      },
     })
       .then((response) => {
         // first event with !active has firstInactive,
@@ -43,17 +51,32 @@ export const useEventsStore = create<EventState>((set, get) => ({
         let firstInactiveAppeared = false;
         set((state) => ({
           events: state.events.concat(
-            response.data.events.map((eventItem: IEvent) => {
-              if (!firstInactiveAppeared && !eventItem.active) {
+            response.data.results.$values.map((eventItem: any) => {
+              const transformedEventItem: IEvent = {
+                id: eventItem.guid,
+                title: eventItem.title,
+                imageURI: eventItem.pictureUrls.$values[0],
+                startDate: new Date(eventItem.startDate),
+                endDate: new Date(eventItem.endDate),
+                participants: eventItem.participantCount,
+                rating: eventItem.rating,
+                availableSpace: eventItem.availablePlaces > 0,
+                lowAvailableSpace:
+                  eventItem.availablePlaces > 0 &&
+                  eventItem.availablePlaces < 10,
+                active: new Date(eventItem.endDate) > new Date(),
+                firstInactive: false,
+              };
+              if (!firstInactiveAppeared && !transformedEventItem.active) {
                 firstInactiveAppeared = true;
-                return { ...eventItem, firstInactive: true };
+                return { ...transformedEventItem, firstInactive: true };
               }
-              return { ...eventItem, firstInactive: false };
+              return { ...transformedEventItem, firstInactive: false };
             }),
           ),
           error: null,
           page: state.page + 1,
-          isLastPage: response.data.isLastPage,
+          isLastPage: response.data.paging.last,
         }));
       })
       .catch((error: AxiosError) => {

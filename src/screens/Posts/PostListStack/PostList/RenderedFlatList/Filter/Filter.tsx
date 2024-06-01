@@ -27,7 +27,7 @@ const Filter = () => {
 
   const removeEvent = () => {
     refresh();
-    fetchPosts(filters);
+    fetchPosts({ ...filters, eventId: null, eventTitle: null });
     setFilters({ ...filters, eventId: null, eventTitle: null });
   };
 

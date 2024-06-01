@@ -44,9 +44,9 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
     }
 
     await axios({
-      url: "/api/user/friends",
+      url: "/users/user/friends",
       method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
       params: { Start: get().page, Limit: 10 },
       headers: { Authorization: "Bearer " + jwt },
     })

@@ -1,10 +1,14 @@
-import IUser from "./User";
+import ICommentReply from "./CommentReply";
+import ISimpleUser from "./SimpleUser";
 
 export default interface IComment {
   id: string;
-  owner: IUser;
+  owner: ISimpleUser;
   content: string;
-  createdAt: number;
+  createdAt: Date;
   likes: number;
-  replies: IComment[];
+  dislikes: number;
+  responsesCount: number;
+  replies: ICommentReply[];
+  userReactionIsDislike: boolean | null;
 }

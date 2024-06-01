@@ -7,12 +7,14 @@ interface PostDetailsReactionsButtonProps {
   icon: ReactionType;
   selectedReaction: ReactionType;
   setSelectedReactionHandler: (newSelectedReaction: ReactionType) => void;
+  reactionCount?: number;
 }
 
 const PostDetailsReactionsButton = ({
   icon,
   selectedReaction,
   setSelectedReactionHandler,
+  reactionCount,
 }: PostDetailsReactionsButtonProps) => {
   return (
     <View
@@ -22,7 +24,7 @@ const PostDetailsReactionsButton = ({
       }}
     >
       <IconButton
-        style={{ marginBottom: 0 }}
+        style={{ marginBottom: 0, marginHorizontal: 2 }}
         icon={icon + (icon === selectedReaction ? "" : "-outline")}
         mode={icon === selectedReaction ? "contained-tonal" : undefined}
         size={24}
@@ -34,7 +36,7 @@ const PostDetailsReactionsButton = ({
           }
         }}
       />
-      <Text>45</Text>
+      <Text>{reactionCount}</Text>
     </View>
   );
 };

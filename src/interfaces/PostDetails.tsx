@@ -1,4 +1,4 @@
-import IUser from "./User";
+export type Reaction = "Like" | "Funny" | "Wow" | "Angry" | "Sad";
 
 export default interface IPostDetails {
   id: string;
@@ -7,6 +7,6 @@ export default interface IPostDetails {
   content: string;
   imageURI: string;
   eventTitle: string;
-  participants: number;
-  friends: IUser[];
+  reactions: Record<Reaction, number>;
+  userReaction: Reaction | null;
 }

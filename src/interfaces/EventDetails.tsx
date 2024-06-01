@@ -1,4 +1,4 @@
-import IUser from "./User";
+import ISimpleUser from "./SimpleUser";
 
 export default interface IEventDetails {
   id: string;
@@ -6,7 +6,7 @@ export default interface IEventDetails {
   imageURI: string;
   eventTitle: string;
   participants: number;
-  friends: IUser[];
+  friends: ISimpleUser[];
   startDate: Date;
   endDate: Date;
   location: string;

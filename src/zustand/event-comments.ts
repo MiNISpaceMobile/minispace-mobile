@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { create } from "zustand";
 
 import IComment from "../interfaces/Comment";
@@ -15,21 +15,6 @@ export const useEventCommentsStore = create<EventCommentsState>((set, get) => ({
   error: null,
   loading: false,
   fetchComments: async (id: string) => {
-    set({ loading: true, comments: [] });
-
-    axios({
-      url: `/comments/by-event/${id}`,
-      method: "get",
-      baseURL: process.env.EXPO_PUBLIC_API_URL_MOCK,
-    })
-      .then((response) => {
-        set({ comments: response.data.comments, error: null });
-      })
-      .catch((error: AxiosError) => {
-        set({ comments: [], error });
-      })
-      .finally(() => {
-        set({ loading: false });
-      });
+    set({ error: new AxiosError("unimplemented endpoint"), comments: [] });
   },
 }));

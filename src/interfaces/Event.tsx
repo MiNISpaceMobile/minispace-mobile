@@ -4,7 +4,7 @@ export default interface IEvent {
   imageURI: string;
   startDate: Date;
   endDate: Date;
-  friendParticipants: number;
+  participants: number;
   rating: number | null;
   availableSpace: boolean;
   lowAvailableSpace: boolean;
