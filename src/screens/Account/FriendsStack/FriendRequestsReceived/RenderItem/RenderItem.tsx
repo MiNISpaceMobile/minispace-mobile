@@ -41,7 +41,7 @@ const RenderItem = ({ route, navigation, item }: RenderItemProps) => {
     }
 
     await axios({
-      url: "/friend-requests",
+      url: `/friend-requests/${item.id}`,
       method: "patch",
       baseURL: process.env.EXPO_PUBLIC_API_URL,
       params: { id: item.id },
