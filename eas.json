@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 9.1.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://man-rested-husky.ngrok-free.app"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://man-rested-husky.ngrok-free.app"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
